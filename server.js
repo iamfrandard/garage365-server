@@ -48,7 +48,7 @@ const Role = db.role;
 //Base de datos - Online
 db.mongoose
   .connect(
-    `mongodb+srv://admin:admin@garage365db.u8qultk.mongodb.net/?retryWrites=true&w=majority`,
+    `mongodb+srv://owner:1230@garage365db.u8qultk.mongodb.net/?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
