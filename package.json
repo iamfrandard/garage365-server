@@ -4,6 +4,7 @@
   "description": "Server Garage365",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js"
   },
   "keywords": [
     "node.js",
