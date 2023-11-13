@@ -3,14 +3,18 @@ const controller = require("../controllers/user.controller");
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept");
+    // Aquí agregas explícitamente el dominio que está permitido, o puedes usar '*' para permitir cualquier dominio
+    res.header("Access-Control-Allow-Origin", "https://garage365.netlify.app");
+
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, x-access-token"
+    );
     res.header(
       "Access-Control-Allow-Methods",
       "GET, POST, PUT, DELETE, OPTIONS"
     );
-    res.header(
-      "Origin, X-Requested-With, Content-Type, Accept, x-access-token"
-    );
+
     next();
   });
 
