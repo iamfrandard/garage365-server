@@ -1,5 +1,5 @@
 {
-  "name": "node-js-jwt-auth-mongodb",
+  "name": "Garage365",
   "version": "1.0.0",
   "description": "Server Garage365",
   "main": "server.js",
