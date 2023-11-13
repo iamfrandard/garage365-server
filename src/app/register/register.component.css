@@ -1,0 +1,60 @@
+#Background_Register {
+  width: 100%;
+  height: 100vh;
+  background: url("src/assets/img/hero-bg.jpg") top center no-repeat;
+  background-size: cover;
+  position: relative;
+  padding-top: 82px;
+}
+
+#Background_Register .label {
+  display: block;
+  margin-top: 10px;
+}
+
+#Background_Register .card {
+  background-color: rgba(0, 0, 0, 0.80);
+  padding: 20px 25px 30px;
+  margin: 0 auto 0px;
+  margin-top: 10px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 5px;
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+#Background_Register .logo {
+  font-size: 30px;
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+}
+
+#Background_Register .logo a {
+  color: #ffffff;
+}
+
+#Background_Register .logo a span {
+  color: #e03a3c;
+}
+
+#Background_Register .logo img {
+  max-height: 40px;
+}
+
+#Background_Register .label {
+  display: block;
+  margin-top: 10px;
+}
+
+#Background_Register  h4 {
+  margin-top: 10px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #fff;
+  transition: 0.3s;
+}

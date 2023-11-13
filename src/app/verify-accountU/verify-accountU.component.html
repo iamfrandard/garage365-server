@@ -1,0 +1,28 @@
+<div class="container">
+  <div>
+    <h1 class="logo">
+      <a href="/inicio">Garage365<span>.</span></a>
+    </h1>
+
+    <p class="verification-message">
+      Estamos validando los detalles de tu cuenta.
+    </p>
+    <p>
+      Te agradecemos tu paciencia. Si lo prefieres, puedes
+      <a href="#" (click)="skipVerification()">continuar de inmediato</a>.
+    </p>
+
+    <div
+      class="progress"
+      role="progressbar"
+      aria-valuenow="0"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+      <div
+        class="progress-bar progress-bar-striped progress-bar-animated"
+        style="width: 0%"
+      ></div>
+    </div>
+  </div>
+</div>

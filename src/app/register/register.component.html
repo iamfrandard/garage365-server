@@ -1,0 +1,1160 @@
+<section id="Background_Register" class="d-flex align-items-center">
+  <div class="container" data-aos="zoom-out" data-aos-delay="100">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="col-10 mx-auto">
+          <div class="card card-body">
+            <h1 class="logo text-md-center">
+              <a href="/inicio">Garage365<span>.</span></a>
+            </h1>
+            <br />
+            <!--Personal & Business-->
+            <div class="row text-md-center" *ngIf="Buttons">
+              <div>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button
+                    (click)="cambiarEstadoDiv1()"
+                    type="button"
+                    class="btn"
+                    [ngClass]="{
+                      'btn-danger': mostrarDiv1,
+                      'btn-outline-danger': !mostrarDiv1
+                    }"
+                  >
+                    Personal
+                  </button>
+                  <button
+                    (click)="cambiarEstadoDiv2()"
+                    type="button"
+                    class="btn"
+                    [ngClass]="{
+                      'btn-danger': mostrarDiv2,
+                      'btn-outline-danger': !mostrarDiv2
+                    }"
+                  >
+                    Empresarial
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!--Personal & Business-->
+
+            <!--Personal-->
+            <div *ngIf="mostrarDiv1">
+              <br />
+              <form
+                class="row g-3"
+                *ngIf="!isSuccessful"
+                name="form"
+                (ngSubmit)="f.form.valid && onSubmit()"
+                #f="ngForm"
+                novalidate
+              >
+                <!--Name-->
+                <div class="col-md-4">
+                  <h4 for="inputName" class="form-label">Nombre *</h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputName"
+                    [(ngModel)]="form.inputName"
+                    required
+                    minlength="3"
+                    maxlength="20"
+                    #inputName="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && inputName.errors
+                    }"
+                    placeholder="Luis Angel"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputName.errors && f.submitted"
+                  >
+                    <div
+                      *ngIf="inputName.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                    <div
+                      *ngIf="inputName.errors['minlength']"
+                      style="color: #ffffff"
+                    >
+                      Minimo de caracteres 3!
+                    </div>
+                    <div
+                      *ngIf="inputName.errors['maxlength']"
+                      style="color: #ffffff"
+                    >
+                      Maximo de caracteres 20!
+                    </div>
+                  </div>
+                </div>
+
+                <!--Last Name-->
+                <div class="col-md-4">
+                  <h4 for="inputLastName" class="form-label">Apellido *</h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputLastName"
+                    [(ngModel)]="form.inputLastName"
+                    required
+                    minlength="3"
+                    maxlength="20"
+                    #inputLastName="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && inputLastName.errors
+                    }"
+                    placeholder="Cruz Ramos"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputLastName.errors && f.submitted"
+                  >
+                    <div
+                      *ngIf="inputLastName.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                    <div
+                      *ngIf="inputLastName.errors['minlength']"
+                      style="color: #ffffff"
+                    >
+                      Minimo de caracteres 3!
+                    </div>
+                    <div
+                      *ngIf="inputLastName.errors['maxlength']"
+                      style="color: #ffffff"
+                    >
+                      Maximo de caracteres 20!
+                    </div>
+                  </div>
+                </div>
+
+                <!--Phone-->
+                <div class="col-md-4">
+                  <h4 for="inputNumber" class="form-label">Telefono *</h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputNumber"
+                    [(ngModel)]="form.inputNumber"
+                    required
+                    minlength="10"
+                    maxlength="10"
+                    #inputNumber="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && inputNumber.errors
+                    }"
+                    placeholder="(000) 000-0000"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputNumber.errors && f.submitted"
+                  >
+                    <div
+                      *ngIf="inputNumber.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                    <div
+                      *ngIf="inputNumber.errors['minlength']"
+                      style="color: #ffffff"
+                    >
+                      Minimo de caracteres 3!
+                    </div>
+                    <div
+                      *ngIf="inputNumber.errors['maxlength']"
+                      style="color: #ffffff"
+                    >
+                      Maximo de caracteres 20!
+                    </div>
+                  </div>
+                </div>
+
+                <!--ID-->
+                <div class="col-md-4">
+                  <h4 for="inputID" class="form-label">Cedula *</h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputID"
+                    [(ngModel)]="form.inputID"
+                    required
+                    minlength="11"
+                    maxlength="11"
+                    #inputID="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && inputID.errors
+                    }"
+                    placeholder="000-0000000-0"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputID.errors && f.submitted"
+                  >
+                    <div
+                      *ngIf="inputID.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                    <div
+                      *ngIf="inputID.errors['minlength']"
+                      style="color: #ffffff"
+                    >
+                      Minimo de caracteres 3!
+                    </div>
+                    <div
+                      *ngIf="inputID.errors['maxlength']"
+                      style="color: #ffffff"
+                    >
+                      Maximo de caracteres 20!
+                    </div>
+                  </div>
+                </div>
+
+                <!--Mail-->
+                <div class="col-md-4">
+                  <h4 for="inputMail">Email *</h4>
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="inputMail"
+                    [(ngModel)]="form.inputMail"
+                    required
+                    email
+                    #inputMail="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && inputMail.errors
+                    }"
+                    placeholder="ejemplo@correo.com"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputMail.errors && f.submitted"
+                  >
+                    <div
+                      *ngIf="inputMail.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                    <div
+                      *ngIf="inputMail.errors['email']"
+                      style="color: #ffffff"
+                    >
+                      Correo Electronico invalido!
+                    </div>
+                  </div>
+                </div>
+
+                <!--Password-->
+                <div class="col-md-4">
+                  <h4 for="inputPassword">Contraseña *</h4>
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="inputPassword"
+                    [(ngModel)]="form.inputPassword"
+                    required
+                    minlength="8"
+                    #inputPassword="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && inputPassword.errors
+                    }"
+                    placeholder="************"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputPassword.errors && f.submitted"
+                  >
+                    <div
+                      *ngIf="inputPassword.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                    <div
+                      *ngIf="inputPassword.errors['minlength']"
+                      style="color: #ffffff"
+                    >
+                      Minimo de caracteres 8!
+                    </div>
+                  </div>
+                </div>
+
+                <!--Address-->
+                <div class="col-md-7">
+                  <h4 for="inputAddress" class="form-label">Calle *</h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputAddress"
+                    [(ngModel)]="form.inputAddress"
+                    required
+                    minlength="3"
+                    maxlength="50"
+                    #inputAddress="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && inputAddress.errors
+                    }"
+                    placeholder="Av. 27 de febrero"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputAddress.errors && f.submitted"
+                  >
+                    <div
+                      *ngIf="inputAddress.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                    <div
+                      *ngIf="inputAddress.errors['minlength']"
+                      style="color: #ffffff"
+                    >
+                      Minimo de caracteres 3!
+                    </div>
+                    <div
+                      *ngIf="inputAddress.errors['maxlength']"
+                      style="color: #ffffff"
+                    >
+                      Maximo de caracteres 20!
+                    </div>
+                  </div>
+                </div>
+
+                <!--Address 2-->
+                <div class="col-md-5">
+                  <h4 for="inputAddress2" class="form-label">
+                    Calle 2 (Empresa, Apartamento, Edificio)
+                  </h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputAddress2"
+                    [(ngModel)]="form.inputAddress2"
+                    required
+                    minlength="3"
+                    maxlength="50"
+                    #inputAddress="ngModel"
+                    placeholder="Edificio 15"
+                  />
+                </div>
+
+                <!--Provincia-->
+                <div class="col-md-4">
+                  <h4 for="inputProvice" class="form-label">Provincia *</h4>
+                  <select
+                    id="inputProvice"
+                    class="form-control"
+                    name="inputProvice"
+                    [(ngModel)]="selectedProvince"
+                    (change)="capturarValoresLocations()"
+                    (change)="selectedMunicipality = ''"
+                  >
+                    <option value="">Selecciona</option>
+                    <option
+                      *ngFor="let province of provinces"
+                      [value]="province.name"
+                    >
+                      {{ province.name }}
+                    </option>
+                  </select>
+                </div>
+
+                <!--Municipio-->
+                <div class="col-md-4">
+                  <h4 for="inputCity" class="form-label">Municipio *</h4>
+                  <select
+                    id="inputCity"
+                    class="form-control"
+                    name="inputCity"
+                    [(ngModel)]="selectedMunicipality"
+                    (change)="capturarValoresLocations()"
+                    (change)="selectedSector = ''"
+                  >
+                    <option value="">Selecciona</option>
+                    <option
+                      *ngFor="let municipality of municipalities"
+                      [value]="municipality.name"
+                    >
+                      {{ municipality.name }}
+                    </option>
+                  </select>
+                </div>
+
+                <!--Sector-->
+                <div class="col-md-4">
+                  <h4 for="inputSector" class="form-label">Sector *</h4>
+                  <select
+                    id="inputSector"
+                    class="form-control"
+                    name="inputSector"
+                    [(ngModel)]="selectedSector"
+                    (change)="capturarValoresLocations()"
+                  >
+                    <option value="">Selecciona</option>
+                    <option *ngFor="let sector of sectors" [value]="sector">
+                      {{ sector }}
+                    </option>
+                  </select>
+                </div>
+
+                <!--Type-->
+                <div class="col-md-2">
+                  <h4 for="inputType">Tipo *</h4>
+                  <select
+                    id="inputType"
+                    class="form-control"
+                    name="inputType"
+                    required="true"
+                    [(ngModel)]="SelectedType"
+                    (change)="capturarValoresCars()"
+                    (change)="selectedBrand = ''"
+                  >
+                    <option value="">Selecciona</option>
+                    <option
+                      *ngFor="let tipoVehiculo of tiposDeVehiculo"
+                      [value]="tipoVehiculo.tipo"
+                    >
+                      {{ tipoVehiculo.tipo }}
+                    </option>
+                  </select>
+                </div>
+
+                <!--Brand-->
+                <div class="col-md-3">
+                  <h4 for="inputBrand">Marca *</h4>
+                  <select
+                    id="inputBrand"
+                    class="form-control"
+                    name="inputBrand"
+                    required="true"
+                    [(ngModel)]="selectedBrand"
+                    (change)="capturarValoresCars()"
+                    (change)="selectedModel = ''"
+                  >
+                    <option value="">Selecciona</option>
+                    <option
+                      *ngFor="let marca of getFilteredBrands()"
+                      [value]="marca.marca"
+                    >
+                      {{ marca.marca }}
+                    </option>
+                  </select>
+                </div>
+
+                <!--Model-->
+                <div class="col-md-3">
+                  <h4 for="model">Modelo *</h4>
+                  <select
+                    id="model"
+                    class="form-control"
+                    name="model"
+                    required="true"
+                    [(ngModel)]="selectedModel"
+                    (change)="capturarValoresCars()"
+                  >
+                    <option value="">Selecciona</option>
+                    <option *ngFor="let model of models" [value]="model">
+                      {{ model }}
+                    </option>
+                  </select>
+                </div>
+
+                <!--Year-->
+                <div class="col-md-2">
+                  <h4 for="inputYear" class="form-label">Año *</h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputYear"
+                    [(ngModel)]="form.inputYear"
+                    required
+                    minlength="4"
+                    maxlength="4"
+                    #inputYear="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && inputYear.errors
+                    }"
+                    placeholder="2015"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputYear.errors && f.submitted"
+                  >
+                    <div
+                      *ngIf="inputYear.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                    <div
+                      *ngIf="inputYear.errors['minlength']"
+                      style="color: #ffffff"
+                    >
+                      Minimo de caracteres 4!
+                    </div>
+                    <div
+                      *ngIf="inputYear.errors['maxlength']"
+                      style="color: #ffffff"
+                    >
+                      Maximo de caracteres 4!
+                    </div>
+                  </div>
+                </div>
+
+                <!--Car ID-->
+                <div class="col-md-2">
+                  <h4 for="inputCarID" class="form-label">Placa *</h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputCarID"
+                    [(ngModel)]="form.inputCarID"
+                    required
+                    minlength="7"
+                    maxlength="7"
+                    #inputCarID="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && inputCarID.errors
+                    }"
+                    placeholder="X000000"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputCarID.errors && f.submitted"
+                  >
+                    <div
+                      *ngIf="inputCarID.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                    <div
+                      *ngIf="inputCarID.errors['minlength']"
+                      style="color: #ffffff"
+                    >
+                      Minimo de caracteres 7!
+                    </div>
+                    <div
+                      *ngIf="inputCarID.errors['maxlength']"
+                      style="color: #ffffff"
+                    >
+                      Maximo de caracteres 7!
+                    </div>
+                  </div>
+                </div>
+
+                <br /><br /><br /><br />
+                <div class="col-md-12">
+                  <a
+                    href="javascript:void(0)"
+                    (click)="capturarValoresCars()"
+                    style="color: #ffffff"
+                    >+ Añadir otro Vehiculo</a
+                  >
+                </div>
+
+                <!--Button Register-->
+                <div class="col-md-12">
+                  <div class="row justify-content-center">
+                    <div class="form-group text-md-center">
+                      <button
+                        class="btn btn-danger btn-block"
+                        (click)="capturarValoresCarsSend()"
+                      >
+                        Registrarse
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!--Alert-->
+                <div
+                  class="alert alert-warning"
+                  *ngIf="f.submitted && isSignUpFailed"
+                >
+                  Error: <br />{{ errorMessage }}
+                </div>
+              </form>
+            </div>
+            <!--Fin Personal-->
+
+            <!--Empresarial 1-->
+            <div *ngIf="mostrarDiv2">
+              <form
+                enctype="multipart/form-data"
+                class="row g-3"
+                *ngIf="!isSuccessful"
+                name="form"
+                (ngSubmit)="f.form.valid && onSubmitWorkshop()"
+                #f="ngForm"
+                novalidate
+              >
+                <!--Name-->
+                <div class="col-md-6">
+                  <h4 for="inputNameWorkshop" class="form-label">
+                    Nombre de la empresa *
+                  </h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputNameWorkshop"
+                    [(ngModel)]="form.inputNameWorkshop"
+                    required
+                    minlength="3"
+                    maxlength="30"
+                    #inputNameWorkshop="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && inputNameWorkshop.errors
+                    }"
+                    placeholder="Santo Domingo Motors"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputNameWorkshop.errors && f.submitted"
+                  >
+                    <div
+                      *ngIf="inputNameWorkshop.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                    <div
+                      *ngIf="inputNameWorkshop.errors['minlength']"
+                      style="color: #ffffff"
+                    >
+                      Minimo de caracteres 3!
+                    </div>
+                    <div
+                      *ngIf="inputNameWorkshop.errors['maxlength']"
+                      style="color: #ffffff"
+                    >
+                      Maximo de caracteres 30!
+                    </div>
+                  </div>
+                </div>
+
+                <!--Phone-->
+                <div class="col-md-6">
+                  <h4 for="inputNumberW" class="form-label">Telefono *</h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputNumberW"
+                    [(ngModel)]="form.inputNumberW"
+                    required
+                    minlength="10"
+                    maxlength="10"
+                    #inputNumberW="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && inputNumberW.errors
+                    }"
+                    placeholder="(000) 000-0000"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputNumberW.errors && f.submitted"
+                  >
+                    <div
+                      *ngIf="inputNumberW.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                    <div
+                      *ngIf="inputNumberW.errors['minlength']"
+                      style="color: #ffffff"
+                    >
+                      Minimo de caracteres 10!
+                    </div>
+                    <div
+                      *ngIf="inputNumberW.errors['maxlength']"
+                      style="color: #ffffff"
+                    >
+                      Maximo de caracteres 11!
+                    </div>
+                  </div>
+                </div>
+
+                <!--Mail-->
+                <div class="col-md-6">
+                  <h4 for="inputMailW">Email *</h4>
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="inputMailW"
+                    [(ngModel)]="form.inputMailW"
+                    required
+                    email
+                    #inputMailW="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && inputMailW.errors
+                    }"
+                    placeholder="ejemplo@correo.com"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputMailW.errors && f.submitted"
+                  >
+                    <div
+                      *ngIf="inputMailW.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                    <div
+                      *ngIf="inputMailW.errors['email']"
+                      style="color: #ffffff"
+                    >
+                      Correo Electronico invalido!
+                    </div>
+                  </div>
+                </div>
+
+                <!--Password-->
+                <div class="col-md-6">
+                  <h4 for="inputPasswordW">Contraseña *</h4>
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="inputPasswordW"
+                    [(ngModel)]="form.inputPasswordW"
+                    required="true"
+                    minlength="8"
+                    #inputPasswordW="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f.submitted && inputPasswordW.errors
+                    }"
+                    placeholder="************"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputPasswordW.errors && f.submitted"
+                  >
+                    <div
+                      *ngIf="inputPasswordW.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                    <div
+                      *ngIf="inputPasswordW.errors['minlength']"
+                      style="color: #ffffff"
+                    >
+                      Minimo de caracteres 8!
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="alert alert-warning"
+                  *ngIf="f.submitted && isSignUpFailed"
+                >
+                  Error: <br />{{ errorMessage }}
+                </div>
+
+                <!--Next button-->
+                <div class="col-md-12">
+                  <div class="row text-md-center">
+                    <div class="form-group">
+                      <button
+                        (click)="validarYCambiardiv3(f)"
+                        class="btn btn-danger"
+                      >
+                        Siguiente
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!--Fin Empresarial 1-->
+
+            <!--Empresarial 2-->
+            <div *ngIf="mostrarDiv3">
+              <form
+                enctype="multipart/form-data"
+                class="row g-3"
+                *ngIf="!isSuccessful"
+                name="form"
+                (ngSubmit)="f2.form.valid && onSubmitWorkshop()"
+                #f2="ngForm"
+                novalidate
+              >
+                <!--Photo-->
+                <div class="col-12">
+                  <h4 class="form-label">Imagen *</h4>
+                  <input
+                    (change)="onFileSelected($event)"
+                    type="file"
+                    name="inputImage"
+                    class="form-control"
+                    id="inputImage"
+                  />
+                </div>
+
+                <!--Certificate-->
+                <div class="col-12">
+                  <h4 class="form-label">Certificado *</h4>
+                  <input
+                    (change)="onFileSelected2($event)"
+                    type="file"
+                    name="inputCertificate"
+                    class="form-control"
+                    id="inputCertificate"
+                  />
+                </div>
+
+                <!--ID del negocio-->
+                <div class="col-md-12">
+                  <h4 for="inputWorkshopID" class="form-label">
+                    RNC O ID Empresarial *
+                  </h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputWorkshopID"
+                    [(ngModel)]="form.inputWorkshopID"
+                    required
+                    minlength="11"
+                    maxlength="11"
+                    #inputWorkshopID="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f2.submitted && inputWorkshopID.errors
+                    }"
+                    placeholder="000-0000000-0"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputWorkshopID.errors && f2.submitted"
+                  >
+                    <div
+                      *ngIf="inputWorkshopID.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                    <div
+                      *ngIf="inputWorkshopID.errors['minlength']"
+                      style="color: #ffffff"
+                    >
+                      Minimo de caracteres 3!
+                    </div>
+                    <div
+                      *ngIf="inputWorkshopID.errors['maxlength']"
+                      style="color: #ffffff"
+                    >
+                      Maximo de caracteres 20!
+                    </div>
+                  </div>
+                </div>
+
+                <!--Address-->
+                <div class="col-md-7">
+                  <h4 for="inputAddressW" class="form-label">Direccion *</h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputAddressW"
+                    [(ngModel)]="form.inputAddressW"
+                    required
+                    minlength="3"
+                    maxlength="50"
+                    #inputAddressW="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f2.submitted && inputAddressW.errors
+                    }"
+                    placeholder="Av. 27 de febrero"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputAddressW.errors && f2.submitted"
+                  >
+                    <div
+                      *ngIf="inputAddressW.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                    <div
+                      *ngIf="inputAddressW.errors['minlength']"
+                      style="color: #ffffff"
+                    >
+                      Minimo de caracteres 3!
+                    </div>
+                    <div
+                      *ngIf="inputAddressW.errors['maxlength']"
+                      style="color: #ffffff"
+                    >
+                      Maximo de caracteres 20!
+                    </div>
+                  </div>
+                </div>
+
+                <!--Address 2-->
+                <div class="col-md-5">
+                  <h4 for="inputAddress2W" class="form-label">
+                    Calle 2 (Empresa, Apartamento, Edificio)
+                  </h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputAddress2W"
+                    [(ngModel)]="form.inputAddress2W"
+                    minlength="3"
+                    maxlength="50"
+                    #inputAddress2W="ngModel"
+                    placeholder="Edificio 15"
+                  />
+                </div>
+
+                <!--Province-->
+                <div class="col-md-4">
+                  <h4 for="inputProvinceW" class="form-label">Provincia *</h4>
+                  <select
+                    id="inputProvinceW"
+                    class="form-control"
+                    name="inputProvinceW"
+                    [(ngModel)]="selectedProvinceW"
+                    required="true"
+                    (change)="capturarValoresLocationsW(true)"
+                    (change)="selectedMunicipalityW = ''"
+                  >
+                    <option value="">Selecciona</option>
+                    <option
+                      *ngFor="let province of provinces"
+                      [value]="province.name"
+                    >
+                      {{ province.name }}
+                    </option>
+                  </select>
+                </div>
+
+                <!--City-->
+                <div class="col-md-4">
+                  <h4 for="inputCityW" class="form-label">Municipio *</h4>
+                  <select
+                    id="inputCityW"
+                    class="form-control"
+                    name="inputCityW"
+                    [(ngModel)]="selectedMunicipalityW"
+                    required="true"
+                    (change)="capturarValoresLocationsW(true)"
+                    (change)="selectedSectorW = ''"
+                  >
+                    <option value="">Selecciona</option>
+                    <option
+                      *ngFor="let municipality of municipalitiesW"
+                      [value]="municipality.name"
+                    >
+                      {{ municipality.name }}
+                    </option>
+                  </select>
+                </div>
+
+                <!--Sector-->
+                <div class="col-md-4">
+                  <h4 for="inputSectorW" class="form-label">Sector *</h4>
+                  <select
+                    id="inputSectorW"
+                    class="form-control"
+                    name="inputSectorW"
+                    [(ngModel)]="selectedSectorW"
+                    required="true"
+                    (change)="capturarValoresLocationsW(true)"
+                  >
+                    <option value="">Selecciona</option>
+                    <option *ngFor="let sector of sectorsW" [value]="sector">
+                      {{ sector }}
+                    </option>
+                  </select>
+                </div>
+                <br /><br /><br /><br />
+                <div class="col-md-12">
+                  <a
+                    href="javascript:void(0)"
+                    (click)="capturarValoresLocationsW(false, false, true)"
+                    style="color: #ffffff"
+                    >+ Añadir la Direccion #{{ _contador }}</a
+                  >
+                </div>
+                <!--Back & Next-->
+                <div>
+                  <div class="text-md-center">
+                    <button
+                      (click)="cambiarEstadoDiv2()"
+                      type="button"
+                      class="btn btn-danger"
+                    >
+                      Atras
+                    </button>
+                    <button
+                      (click)="capturarValoresLocationsW(false, false, false)"
+                      (click)="validarYCambiardiv4(f2)"
+                      class="btn btn-danger"
+                    >
+                      Siguiente
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!--Fin Empresarial 2-->
+
+            <!--Empresarial 3-->
+            <div *ngIf="mostrarDiv4">
+              <form
+                enctype="multipart/form-data"
+                class="row g-3"
+                *ngIf="!isSuccessful"
+                name="form"
+                (ngSubmit)="f3.form.valid && onSubmitWorkshop()"
+                #f3="ngForm"
+                novalidate
+              >
+                <!--Brands-->
+                <div class="col-md-3">
+                  <h4 for="inputBrandW">Marca:</h4>
+                  <select
+                    id="inputBrandW"
+                    class="form-control"
+                    name="inputBrandW"
+                    required="true"
+                    [(ngModel)]="selectedBrandW"
+                    (change)="capturarValoresBrand(false, false)"
+                  >
+                    <option value="">Selecciona</option>
+                    <option
+                      *ngFor="let marca of carBrands"
+                      [value]="marca.name"
+                    >
+                      {{ marca.name }}
+                    </option>
+                  </select>
+                </div>
+                <br /><br /><br /><br />
+                <div class="col-md-12">
+                  <a
+                    href="javascript:void(0)"
+                    (click)="capturarValoresBrand(true, true)"
+                    style="color: #ffffff"
+                    >+ Añadir la Marca #{{ contador2 }}</a
+                  >
+                </div>
+                <!--Services-->
+                <div class="col-md-7">
+                  <h4 for="inputServices" class="form-label">Servicios</h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputServices"
+                    [(ngModel)]="form.inputServices"
+                    required="true"
+                    minlength="5"
+                    maxlength="50"
+                    #inputServices="ngModel"
+                    [ngClass]="{
+                      'is-invalid': f3.submitted && inputServices.errors
+                    }"
+                    placeholder="Alineacion y balanceo"
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputServices.errors && f3.submitted"
+                  >
+                    <div
+                      *ngIf="inputServices.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <h4 for="inputServiceDescription" class="form-label">
+                    Descripcion del Servicios
+                  </h4>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="inputServiceDescription"
+                    [(ngModel)]="form.inputServiceDescription"
+                    required="true"
+                    minlength="5"
+                    maxlength="100"
+                    #inputServiceDescription="ngModel"
+                    [ngClass]="{
+                      'is-invalid':
+                        f3.submitted && inputServiceDescription.errors
+                    }"
+                    placeholder="Ajuste de alineacion del sistema de direccion."
+                  />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="inputServiceDescription.errors && f3.submitted"
+                  >
+                    <div
+                      *ngIf="inputServiceDescription.errors['required']"
+                      style="color: #ffffff"
+                    >
+                      Se requiere este campo!
+                    </div>
+                  </div>
+                </div>
+                <br /><br /><br /><br />
+                <div class="col-md-12">
+                  <a
+                    href="javascript:void(0)"
+                    (click)="capturarValoresService(true, true)"
+                    style="color: #ffffff"
+                    >+ Añadir el servicio #{{ contador3 }}</a
+                  >
+                </div>
+                <!--Back & Finish-->
+                <div>
+                  <div class="text-md-center">
+                    <button
+                      (click)="cambiarEstadoDiv3()"
+                      type="button"
+                      class="btn btn-danger"
+                    >
+                      Atras
+                    </button>
+                    <button
+                      class="btn btn-danger"
+                      (click)="capturarValoresServiceAndBrand()"
+                    >
+                      Finalizar
+                    </button>
+                  </div>
+
+                  <!--Alert-->
+                  <div
+                    class="alert alert-warning"
+                    *ngIf="f3.submitted && isSignUpFailed"
+                  >
+                    Error: <br />{{ errorMessage }}
+                  </div>
+                </div>
+              </form>
+
+              <div class="alert alert-success" *ngIf="isSuccessful">
+                Registro Completado!
+              </div>
+            </div>
+            <!--Fin Empresarial 3-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

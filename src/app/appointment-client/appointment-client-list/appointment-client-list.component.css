@@ -1,0 +1,48 @@
+.list {
+  text-align: left;
+  max-width: 750px;
+  margin: auto;
+}
+
+.star {
+  font-size: 24px;
+  color: #ddd;
+  cursor: pointer;
+}
+
+.star.selected {
+  color: gold;
+}
+
+
+.progress-container {
+  position: relative;
+}
+
+.progress-icons {
+  position: absolute;
+  top: -60px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-icons .icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.progress-icons i {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.progress-icons i.completed {
+  color: greenyellow;
+}
+
+.pending {
+  color: gray;
+}

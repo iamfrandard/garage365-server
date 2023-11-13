@@ -1,0 +1,793 @@
+<app-header></app-header>
+
+<div class="container" id="header">
+  <h1 class="logo">
+    <a>Configuración del Perfil</a>
+  </h1>
+
+  <br />
+
+  <!-- Información del Usuario -->
+  <div>
+    <h1 class="logo">
+      <a> <span>Detalles</span></a>
+    </h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">
+            <input
+              type="checkbox"
+              (change)="selectDetails(currentUserData?.firstName)"
+            />
+          </td>
+          <td><strong>Nombre:</strong></td>
+          <td>{{ currentUserData?.firstName }}</td>
+        </tr>
+        <tr>
+          <td scope="row">
+            <input
+              type="checkbox"
+              (change)="selectDetails(currentUserData?.lastName)"
+            />
+          </td>
+          <td><strong>Apellido:</strong></td>
+          <td>{{ currentUserData?.lastName }}</td>
+        </tr>
+        <tr>
+          <td scope="row">
+            <input
+              type="checkbox"
+              (change)="selectDetails(currentUserData?.phoneNumber)"
+            />
+          </td>
+          <td><strong>Teléfono:</strong></td>
+          <td>{{ formatPhoneNumber(currentUserData?.phoneNumber) }}</td>
+        </tr>
+        <tr>
+          <td scope="row">
+            <input
+              type="checkbox"
+              (change)="selectDetails(currentUserData?.idNumber)"
+            />
+          </td>
+          <td><strong>Cedula:</strong></td>
+          <td>{{ formatIdNumber(currentUserData?.idNumber) }}</td>
+        </tr>
+        <tr>
+          <td scope="row">
+            <input
+              type="checkbox"
+              (change)="selectDetails(currentUserData?.email)"
+            />
+          </td>
+          <td><strong>Email:</strong></td>
+          <td>{{ currentUserData?.email }}</td>
+        </tr>
+        <tr>
+          <td scope="row">
+            <input
+              type="checkbox"
+              (change)="selectDetails(currentUserData?.address)"
+            />
+          </td>
+          <td><strong>Dirección:</strong></td>
+          <td>{{ currentUserData?.address }}</td>
+        </tr>
+        <tr>
+          <td scope="row">
+            <input
+              type="checkbox"
+              (change)="selectDetails(currentUserData?.address2)"
+            />
+          </td>
+          <td><strong>Dirección 2:</strong></td>
+          <td>{{ currentUserData?.address2 }}</td>
+        </tr>
+        <tr>
+          <td scope="row">
+            <input
+              type="checkbox"
+              (change)="selectDetails(currentUserData?.province)"
+            />
+          </td>
+          <td><strong>Provincia:</strong></td>
+          <td>{{ currentUserData?.province }}</td>
+        </tr>
+        <tr>
+          <td scope="row">
+            <input
+              type="checkbox"
+              (change)="selectDetails(currentUserData?.city)"
+            />
+          </td>
+          <td><strong>Ciudad:</strong></td>
+          <td>{{ currentUserData?.city }}</td>
+        </tr>
+        <tr>
+          <td scope="row">
+            <input
+              type="checkbox"
+              (change)="selectDetails(currentUserData?.sector)"
+            />
+          </td>
+          <td><strong>Sector:</strong></td>
+          <td>{{ currentUserData?.sector }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button
+      type="button"
+      class="btn btn-outline-success"
+      data-bs-toggle="modal"
+      data-bs-target="#modalEdit"
+    >
+      Modificar
+    </button>
+  </div>
+  <!-- Información del Usuario -->
+
+  <br />
+
+  <!-- Información de Vehículos -->
+  <div>
+    <h1 class="logo">
+      <a> <span>Vehiculos</span></a>
+    </h1>
+    <br />
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Tipo</th>
+          <th scope="col">Marca</th>
+          <th scope="col">Modelo</th>
+          <th scope="col">Año</th>
+          <th scope="col">Placa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vehicle of currentUserData?.vehicles; let i = index">
+          <td scope="row">
+            <input
+              type="checkbox"
+              [disabled]="currentVehicle && currentVehicle !== vehicle"
+              [checked]="vehicle.isSelected"
+              (change)="selectVehicle(vehicle)"
+            />
+          </td>
+          <td>{{ vehicle.vehicleType }}</td>
+          <td>{{ vehicle.vehicleBrand }}</td>
+          <td>{{ vehicle.vehicleModel }}</td>
+          <td>{{ vehicle.vehicleYear }}</td>
+          <td>{{ vehicle.vehicleID }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button
+      type="button"
+      class="btn btn-outline-primary mr-2"
+      data-bs-toggle="modal"
+      data-bs-target="#modalAdd"
+      [disabled]="currentVehicle"
+    >
+      Agregar
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-outline-success mr-2"
+      data-bs-toggle="modal"
+      data-bs-target="#modalUpdate"
+      [disabled]="!currentVehicle"
+    >
+      Modificar
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-outline-danger"
+      data-bs-toggle="modal"
+      data-bs-target="#modalDelete"
+      [disabled]="!currentVehicle"
+    >
+      Eliminar
+    </button>
+  </div>
+  <!-- Información de Vehículos -->
+</div>
+
+<ng-template #loggedOut> Inicie sesion. </ng-template>
+
+<!-- Usuario Detalle -->
+<div>
+  <!-- Edit -->
+  <div
+    class="modal fade"
+    id="modalEdit"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="modalEditLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            <strong>Editar - Detalles</strong>
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="refreshWindow()"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <p>Edite el formulario</p>
+
+          <div class="mb-3">
+            <label class="form-label"
+              ><strong>Detalle:</strong> {{ currentDetails }}</label
+            >
+
+            <input class="form-control" type="text" [(ngModel)]="dataNew" />
+          </div>
+
+          <p>Si desea editar el Usuario, presione <strong>Aceptar</strong>.</p>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+          <button
+            [disabled]="!dataNew"
+            type="button"
+            class="btn btn-outline-success"
+            (click)="updateDetails()"
+            data-bs-target="#modalEdit2"
+            data-bs-toggle="modal"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit -->
+
+  <!-- Edit 2 -->
+  <div
+    class="modal fade"
+    id="modalEdit2"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="modalEdit2Label"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            <strong>Editar - Detalles</strong>
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="refreshWindow()"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <p>El Usario fue actualizado, <strong>Exitosamente!</strong></p>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            (click)="refreshWindow()"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit 2 -->
+</div>
+<!-- Usuario Detalle -->
+
+<!-- Usuario Vehiculo-->
+<div>
+  <!-- Add -->
+  <div
+    class="modal fade"
+    id="modalAdd"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="modalAddLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            <strong>Agregar - Vehiculo</strong>
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="refreshWindow()"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <p>Complete el formulario</p>
+
+          <div class="mb-3">
+            <strong><label class="form-label">Tipo</label></strong>
+            <select class="form-control" [(ngModel)]="selectedType">
+              <option
+                *ngFor="let tipo of data.tiposDeVehiculo"
+                [ngValue]="tipo"
+              >
+                {{ tipo.tipo }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3" *ngIf="selectedType">
+            <strong><label class="form-label">Marca</label></strong>
+            <select class="form-control" [(ngModel)]="selectedBrand">
+              <option
+                *ngFor="let marca of selectedType.marcas"
+                [ngValue]="marca"
+              >
+                {{ marca.marca }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3" *ngIf="selectedBrand">
+            <strong><label class="form-label">Modelo</label></strong>
+            <select class="form-control" [(ngModel)]="selectedModel">
+              <option
+                *ngFor="let modelo of selectedBrand.modelos"
+                [ngValue]="modelo"
+              >
+                {{ modelo }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <strong><label class="form-label">Año</label></strong>
+            <input
+              class="form-control"
+              type="number"
+              [(ngModel)]="year"
+              pattern="^[0-9]{4}$"
+            />
+          </div>
+
+          <div class="mb-3">
+            <strong><label class="form-label">Placa</label></strong>
+
+            <input
+              class="form-control"
+              type="text"
+              [(ngModel)]="carID"
+              maxlength="7"
+            />
+          </div>
+
+          <p>
+            Si desea agregar el Vehiculo, presione <strong>Aceptar</strong>.
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+          <button
+            [disabled]="
+              !selectedType ||
+              !selectedBrand ||
+              !selectedModel ||
+              !year ||
+              !carID
+            "
+            type="button"
+            class="btn btn-outline-success"
+            (click)="addVehicle()"
+            data-bs-target="#modalAdd2"
+            data-bs-toggle="modal"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add -->
+
+  <!-- Add 2 -->
+  <div
+    class="modal fade"
+    id="modalAdd2"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="modalAdd2Label"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            <strong>Agregar - Vehiculo</strong>
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="refreshWindow()"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <p>El Vehiculo fue agregado, <strong>Exitosamente!</strong></p>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            (click)="refreshWindow()"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add 2 -->
+
+  <!-- Update -->
+  <div
+    class="modal fade"
+    id="modalUpdate"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="modalUpdateLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            <strong>Modificar - Vehiculo</strong>
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="refreshWindow()"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <p>Complete el formulario</p>
+
+          <div class="mb-3">
+            <strong><label class="form-label">Tipo</label></strong>
+            <select class="form-control" [(ngModel)]="selectedType">
+              <option
+                *ngFor="let tipo of data.tiposDeVehiculo"
+                [ngValue]="tipo"
+              >
+                {{ tipo.tipo }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3" *ngIf="selectedType">
+            <strong><label class="form-label">Marca</label></strong>
+            <select class="form-control" [(ngModel)]="selectedBrand">
+              <option
+                *ngFor="let marca of selectedType.marcas"
+                [ngValue]="marca"
+              >
+                {{ marca.marca }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3" *ngIf="selectedBrand">
+            <strong><label class="form-label">Modelo</label></strong>
+            <select class="form-control" [(ngModel)]="selectedModel">
+              <option
+                *ngFor="let modelo of selectedBrand.modelos"
+                [ngValue]="modelo"
+              >
+                {{ modelo }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <strong><label class="form-label">Año</label></strong>
+            <input
+              class="form-control"
+              type="number"
+              [(ngModel)]="year"
+              pattern="^[0-9]{4}$"
+            />
+          </div>
+
+          <div class="mb-3">
+            <strong><label class="form-label">Placa</label></strong>
+
+            <input
+              class="form-control"
+              type="text"
+              [(ngModel)]="carID"
+              maxlength="7"
+            />
+          </div>
+
+          <p>
+            Si desea modificar el Vehiculo, presione <strong>Aceptar</strong>.
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            (click)="updateVehicle()"
+            data-bs-target="#modalUpdate2"
+            data-bs-toggle="modal"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Update -->
+
+  <!-- Update 2 -->
+  <div
+    class="modal fade"
+    id="modalUpdate2"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="modalUpdate2Label"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            <strong>Modificar - Vehiculo</strong>
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="refreshWindow()"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <p>El Vehiculo fue modificado, <strong>Exitosamente!</strong></p>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            (click)="refreshWindow()"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Update 2 -->
+
+  <!-- Delete -->
+  <div
+    class="modal fade"
+    id="modalDelete"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="modalDeleteLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            <strong>Eliminar - Vehiculo</strong>
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="refreshWindow()"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <strong><label class="form-label">Tipo</label></strong>
+
+            <input
+              class="form-control"
+              type="text"
+              [(ngModel)]="selectedType"
+              readonly
+            />
+          </div>
+
+          <div class="mb-3">
+            <strong><label class="form-label">Marca</label></strong>
+
+            <input
+              class="form-control"
+              type="text"
+              [(ngModel)]="selectedBrand"
+              readonly
+            />
+          </div>
+
+          <div class="mb-3">
+            <strong><label class="form-label">Modelo</label></strong>
+
+            <input
+              class="form-control"
+              type="text"
+              [(ngModel)]="selectedModel"
+              readonly
+            />
+          </div>
+
+          <div class="mb-3">
+            <strong><label class="form-label">Año</label></strong>
+
+            <input
+              class="form-control"
+              type="text"
+              [(ngModel)]="year"
+              readonly
+            />
+          </div>
+
+          <div class="mb-3">
+            <strong><label class="form-label">Placa</label></strong>
+
+            <input
+              class="form-control"
+              type="text"
+              [(ngModel)]="carID"
+              readonly
+            />
+          </div>
+
+          <p>
+            Si desea eliminar el Vehiculo, presione <strong>Aceptar</strong>.
+          </p>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            (click)="deleteVehicle()"
+            data-bs-target="#modalDelete2"
+            data-bs-toggle="modal"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Delete -->
+
+  <!-- Delete 2 -->
+  <div
+    class="modal fade"
+    id="modalDelete2"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="modalUpdate2Label"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            <strong>Eliminar - Vehiculo</strong>
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="refreshWindow()"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <p>El Vehiculo fue eliminado, <strong>Exitosamente!</strong></p>
+        </div>
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            (click)="refreshWindow()"
+          >
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Delete 2 -->
+</div>
+<!-- Usuario Vehiculo-->

@@ -1,0 +1,21 @@
+<app-header></app-header>
+
+<br />
+<br />
+<br />
+<br />
+<div class="container" *ngIf="currentUser; else loggedOut">
+  <div *ngFor="let role of currentUser.roles">
+    <div *ngIf="role == 'ROLE_MODERATOR'">
+      <app-appointment-workshop-list></app-appointment-workshop-list>
+    </div>
+  </div>
+
+  <div *ngFor="let role of currentUser.roles">
+    <div *ngIf="role == 'ROLE_USER'">
+      <app-appointment-client-list></app-appointment-client-list>
+    </div>
+  </div>
+</div>
+
+<ng-template #loggedOut> Inicie sesion. </ng-template>

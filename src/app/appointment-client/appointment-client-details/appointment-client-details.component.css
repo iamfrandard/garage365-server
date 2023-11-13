@@ -1,0 +1,54 @@
+.edit-form {
+  max-width: 400px;
+  margin: auto;
+}
+
+.date-time-picker {
+  display: flex;
+  justify-content: space-between;
+  max-width: 500px;
+  margin: auto;
+}
+
+.date-input,
+.time-input {
+  flex: 1;
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.15);
+}
+
+.date-input:focus,
+.time-input:focus {
+  outline: none;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+.stars {
+  font-size: 24px;
+  color: #ddd; /* Color de las estrellas no seleccionadas */
+}
+
+.stars .filled {
+  color: #fdd835; /* Color de las estrellas seleccionadas (p.ej. amarillo) */
+}
+
+.carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.slide {
+  box-sizing: border-box;
+  padding: 10px;
+}

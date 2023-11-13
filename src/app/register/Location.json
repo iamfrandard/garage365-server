@@ -1,0 +1,51 @@
+{
+  "province": [
+    {
+      "name": "Distrito Nacional",
+      "value": [
+        {
+          "name": "Santo Domingo de Guzmán",
+          "sectores": ["Ciudad Colonial", "Gazcue", "Naco", "Piantini", "Bella Vista"]
+        },
+        {
+          "name": "Santo Domingo Este",
+          "sectores": ["Villa Duarte", "Los Mina", "San Isidro", "Alma Rosa", "El Tamarindo"]
+        },
+        {
+          "name": "Santo Domingo Norte",
+          "sectores": ["Villa Mella", "Sabana Perdida", "Los Guaricanos", "Buena Vista", "Ciudad Satélite"]
+        }
+      ]
+    },
+    {
+      "name": "Santiago",
+      "value": [
+        {
+          "name": "Santiago de los Caballeros",
+          "sectores": ["Gurabo", "Cienfuegos", "Pekín", "La Joya", "Los Salados"]
+        },
+        {
+          "name": "Licey al Medio",
+          "sectores": ["Barrio Nuevo", "El Pedregal", "La Española", "Los Robles", "Las Palomas"]
+        },
+        {
+          "name": "Puñal",
+          "sectores": ["Centro", "Pueblo Nuevo", "El Ingenio", "Los Rieles", "Quinigua"]
+        }
+      ]
+    },
+    {
+      "name": "La Altagracia",
+      "value": [
+        {
+          "name": "Higüey",
+          "sectores": ["Villa Cerro", "San Francisco", "La Malena", "El Peñón", "Verón"]
+        },
+        {
+          "name": "Bávaro",
+          "sectores": ["El Cortecito", "Los Corales", "Arena Gorda", "Uvero Alto", "Cabeza de Toro"]
+        }
+      ]
+    }
+  ]
+}

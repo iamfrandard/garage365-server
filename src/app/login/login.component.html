@@ -1,0 +1,107 @@
+<section id="Background_Login" class="d-flex align-items-center">
+  <div class="container" data-aos="zoom-out" data-aos-delay="100">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="col-md-12">
+          <div class="card card-container">
+            <br />
+            <h1 class="logo text-md-center">
+              <a href="/inicio">Garage365<span>.</span></a>
+            </h1>
+            <br />
+            <form
+              *ngIf="!isLoggedIn"
+              name="form"
+              (ngSubmit)="f.form.valid && onSubmit()"
+              #f="ngForm"
+              novalidate
+            >
+              <div class="form-group">
+                <h4 for="inputMail">Correo</h4>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="inputMail"
+                  [(ngModel)]="form.inputMail"
+                  required
+                  #inputMail="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && inputMail.errors }"
+                  placeholder="name@example.com"
+                />
+                <div
+                  *ngIf="inputMail.errors && f.submitted"
+                  class="invalid-feedback"
+                  style="color: #ffffff"
+                >
+                  Se requiere el Correo.
+                </div>
+              </div>
+              <div class="form-group">
+                <h4 for="inputPassword">Contraseña</h4>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="inputPassword"
+                  [(ngModel)]="form.inputPassword"
+                  required
+                  minlength="8"
+                  #inputPassword="ngModel"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && inputPassword.errors
+                  }"
+                  placeholder="********"
+                />
+                <div
+                  *ngIf="inputPassword.errors && f.submitted"
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="inputPassword.errors['required']"
+                    style="color: #ffffff"
+                  >
+                    Se requiere la Contraseña.
+                  </div>
+                  <div
+                    *ngIf="inputPassword.errors['minlength']"
+                    style="color: #ffffff"
+                  >
+                    La Contraseña requiere 8 caracteres como minimo.
+                  </div>
+                </div>
+              </div>
+
+              <br />
+              <div class="form-group text-md-center">
+                <button class="btn btn-danger btn-lg btn-block">
+                  Ingresar
+                </button>
+              </div>
+              <br />
+
+              <div class="form-group">
+                <div
+                  *ngIf="f.submitted && isLoginFailed"
+                  class="alert text-md-center"
+                  role="alert"
+                  style="background-color: #ffffff"
+                >
+                  {{ errorMessage }}
+                </div>
+              </div>
+              <p class="text-md-center">
+                <a href="/recoverpassword" style="color: #ffffff"
+                  >¿Olvidaste la contraseña?</a
+                >
+              </p>
+              <p class="text-md-center">
+                <a href="/registro" style="color: #ffffff"
+                  >¿Desea registrarse?</a
+                >
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

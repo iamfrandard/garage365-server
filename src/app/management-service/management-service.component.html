@@ -1,0 +1,420 @@
+<app-header></app-header>
+
+<br />
+<br />
+<br />
+
+<section id="Workshops" class="portfolio">
+  <div class="container" data-aos="fade-up">
+    <h3><strong>Gestion de Servicio</strong></h3>
+    <br />
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let x of service; let i = index">
+          <td scope="row">
+            <input
+              type="checkbox"
+              [disabled]="currentService && currentService !== x"
+              [checked]="x.isSelected"
+              (change)="selectService(x)"
+            />
+          </td>
+          <th>{{ i + 1 }}</th>
+          <td>{{ x.inputService }}</td>
+          <td>{{ x.inputServiceDescription }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button
+      type="button"
+      class="btn btn-outline-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#modalAdd"
+      [disabled]="currentService"
+    >
+      Agregar
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-outline-success"
+      data-bs-toggle="modal"
+      data-bs-target="#modalUpdate"
+      [disabled]="!currentService"
+    >
+      Modificar
+    </button>
+
+    <button
+      type="button"
+      class="btn btn-outline-danger"
+      data-bs-toggle="modal"
+      data-bs-target="#modalDelete"
+      [disabled]="!currentService"
+    >
+      Eliminar
+    </button>
+  </div>
+</section>
+
+<!-- Add -->
+<div
+  class="modal fade"
+  id="modalAdd"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalAddLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          <strong>Agregar - Servicio</strong>
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="refreshWindow()"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <p>Complete el formulario</p>
+
+        <div class="mb-3">
+          <strong><label class="form-label">Nombre</label></strong>
+
+          <input class="form-control" type="text" [(ngModel)]="nameService" />
+        </div>
+
+        <div class="mb-3">
+          <strong>
+            <label class="form-label">Descripción</label>
+          </strong>
+
+          <input
+            class="form-control"
+            type="text"
+            [(ngModel)]="descriptionService"
+          />
+        </div>
+
+        <p>Si desea agregar el Servicio, presione <strong>Aceptar</strong>.</p>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
+        <button
+          [disabled]="!nameService || !descriptionService"
+          type="button"
+          class="btn btn-outline-success"
+          (click)="addService()"
+          data-bs-target="#modalAdd2"
+          data-bs-toggle="modal"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add -->
+
+<!-- Add 2 -->
+<div
+  class="modal fade"
+  id="modalAdd2"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalAdd2Label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          <strong>Agregar - Servicio</strong>
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="refreshWindow()"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <p>El Servicio fue agregado, <strong>Exitosamente!</strong></p>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success"
+          (click)="refreshWindow()"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add 2 -->
+
+<!-- Update -->
+<div
+  class="modal fade"
+  id="modalUpdate"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalUpdateLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          <strong>Modificar - Servicio</strong>
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="refreshWindow()"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <p>Edite el formulario</p>
+        <div class="mb-3">
+          <strong><label class="form-label">Nombre</label></strong>
+
+          <input class="form-control" type="text" [(ngModel)]="nameService" />
+        </div>
+
+        <div class="mb-3">
+          <strong>
+            <label class="form-label">Descripción</label>
+          </strong>
+
+          <input
+            class="form-control"
+            type="text"
+            [(ngModel)]="descriptionService"
+          />
+        </div>
+
+        <p>
+          Si desea modificar el Servicio, presione <strong>Aceptar</strong>.
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
+        <button
+          [disabled]="!nameService || !descriptionService"
+          type="button"
+          class="btn btn-outline-success"
+          (click)="updateService()"
+          data-bs-target="#modalUpdate2"
+          data-bs-toggle="modal"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Update -->
+
+<!-- Update 2 -->
+<div
+  class="modal fade"
+  id="modalUpdate2"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalUpdate2Label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          <strong>Modificar - Servicio</strong>
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="refreshWindow()"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <p>El Servicio fue modificado, <strong>Exitosamente!</strong></p>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success"
+          (click)="refreshWindow()"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Update 2 -->
+
+<!-- Delete -->
+<div
+  class="modal fade"
+  id="modalDelete"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalDeleteLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          <strong>Eliminar - Servicio</strong>
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="refreshWindow()"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="mb-3">
+          <strong><label class="form-label">Nombre</label></strong>
+
+          <input
+            class="form-control"
+            type="text"
+            [(ngModel)]="nameService"
+            readonly
+          />
+        </div>
+
+        <div class="mb-3">
+          <strong>
+            <label class="form-label">Descripción</label>
+          </strong>
+
+          <input
+            class="form-control"
+            type="text"
+            [(ngModel)]="descriptionService"
+            readonly
+          />
+        </div>
+
+        <p>Si desea eliminar el Servicio, presione <strong>Aceptar</strong>.</p>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-success"
+          (click)="deleteService()"
+          data-bs-target="#modalDelete2"
+          data-bs-toggle="modal"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Delete -->
+
+<!-- Delete 2 -->
+<div
+  class="modal fade"
+  id="modalDelete2"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modalUpdate2Label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          <strong>Eliminar - Servicio</strong>
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="refreshWindow()"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <p>El Servicio fue eliminado, <strong>Exitosamente!</strong></p>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-success"
+          (click)="refreshWindow()"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Delete 2 -->

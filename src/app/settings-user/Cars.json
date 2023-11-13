@@ -1,0 +1,241 @@
+{
+  "tiposDeVehiculo": [
+    {
+      "tipo": "Automóvil",
+      "marcas": [
+        {
+          "marca": "Toyota",
+          "modelos": [
+            "Corolla",
+            "Camry",
+            "Prius",
+            "RAV4",
+            "Highlander",
+            "Tacoma"
+          ]
+        },
+        {
+          "marca": "Ford",
+          "modelos": [
+            "Fiesta",
+            "Focus",
+            "Mustang",
+            "Escape",
+            "Explorer",
+            "F-150"
+          ]
+        },
+        {
+          "marca": "Honda",
+          "modelos": [
+            "Civic",
+            "Accord",
+            "CR-V",
+            "Pilot",
+            "Odyssey",
+            "Ridgeline"
+          ]
+        },
+        {
+          "marca": "Chevrolet",
+          "modelos": [
+            "Cruze",
+            "Malibu",
+            "Silverado",
+            "Equinox",
+            "Tahoe",
+            "Traverse"
+          ]
+        },
+        {
+          "marca": "BMW",
+          "modelos": ["3 Series", "5 Series", "X5", "X3", "7 Series", "i8"]
+        },
+        {
+          "marca": "Mercedes-Benz",
+          "modelos": ["C-Class", "E-Class", "S-Class", "GLC", "GLE", "AMG GT"]
+        },
+        {
+          "marca": "Audi",
+          "modelos": ["A3", "A4", "Q5", "Q7", "TT", "R8"]
+        },
+        {
+          "marca": "Nissan",
+          "modelos": [
+            "Altima",
+            "Maxima",
+            "Rogue",
+            "Sentra",
+            "Pathfinder",
+            "Titan"
+          ]
+        },
+        {
+          "marca": "Hyundai",
+          "modelos": [
+            "Elantra",
+            "Sonata",
+            "Tucson",
+            "Santa Fe",
+            "Kona",
+            "Palisade"
+          ]
+        },
+        {
+          "marca": "Kia",
+          "modelos": [
+            "Forte",
+            "Optima",
+            "Sorento",
+            "Sportage",
+            "Soul",
+            "Telluride"
+          ]
+        },
+        {
+          "marca": "Volkswagen",
+          "modelos": ["Golf", "Jetta", "Passat", "Tiguan", "Atlas", "Arteon"]
+        },
+        {
+          "marca": "Subaru",
+          "modelos": [
+            "Impreza",
+            "Forester",
+            "Outback",
+            "Legacy",
+            "Crosstrek",
+            "Ascent"
+          ]
+        },
+        {
+          "marca": "Mazda",
+          "modelos": ["Mazda3", "Mazda6", "CX-5", "CX-9", "MX-5 Miata", "CX-30"]
+        },
+        {
+          "marca": "Lexus",
+          "modelos": ["IS", "ES", "RX", "NX", "GX", "LC"]
+        },
+        {
+          "marca": "Volvo",
+          "modelos": ["S60", "XC60", "XC90", "V60", "S90", "XC40"]
+        },
+        {
+          "marca": "Tesla",
+          "modelos": [
+            "Model 3",
+            "Model S",
+            "Model X",
+            "Model Y",
+            "Cybertruck",
+            "Roadster"
+          ]
+        },
+        {
+          "marca": "Land Rover",
+          "modelos": [
+            "Range Rover",
+            "Discovery",
+            "Defender",
+            "Velar",
+            "Evoque",
+            "Discovery Sport"
+          ]
+        },
+        {
+          "marca": "Porsche",
+          "modelos": [
+            "911",
+            "Cayenne",
+            "Panamera",
+            "Macan",
+            "Boxster",
+            "Cayman"
+          ]
+        },
+        {
+          "marca": "Jaguar",
+          "modelos": ["XE", "XF", "F-PACE", "E-PACE", "I-PACE", "F-TYPE"]
+        },
+        {
+          "marca": "Ferrari",
+          "modelos": [
+            "458 Italia",
+            "F8 Tributo",
+            "812 Superfast",
+            "Portofino",
+            "SF90 Stradale",
+            "LaFerrari"
+          ]
+        },
+        {
+          "marca": "Maserati",
+          "modelos": [
+            "Ghibli",
+            "Quattroporte",
+            "Levante",
+            "GranTurismo",
+            "MC20"
+          ]
+        },
+        {
+          "marca": "Aston Martin",
+          "modelos": [
+            "DB11",
+            "Vantage",
+            "DBS Superleggera",
+            "Rapide",
+            "Valhalla"
+          ]
+        },
+        {
+          "marca": "Lamborghini",
+          "modelos": ["Huracan", "Aventador", "Urus", "Sian", "Veneno"]
+        },
+        {
+          "marca": "Bugatti",
+          "modelos": [
+            "Chiron",
+            "Veyron",
+            "Divo",
+            "Centodieci",
+            "La Voiture Noire"
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "Motocicleta",
+      "marcas": [
+        {
+          "marca": "Honda",
+          "modelos": ["CBR", "CRF", "XR", "Rebel"]
+        },
+        {
+          "marca": "Yamaha",
+          "modelos": ["YZF", "MT", "FZ", "R3"]
+        },
+        {
+          "marca": "Kawasaki",
+          "modelos": ["Ninja", "Versys", "Z", "KLX"]
+        }
+      ]
+    },
+    {
+      "tipo": "Camión",
+      "marcas": [
+        {
+          "marca": "Volvo",
+          "modelos": ["FH", "FM", "VNL"]
+        },
+        {
+          "marca": "Scania",
+          "modelos": ["R", "S", "P"]
+        },
+        {
+          "marca": "Mercedes-Benz",
+          "modelos": ["Actros", "Arocs", "Econic"]
+        }
+      ]
+    }
+  ]
+}
