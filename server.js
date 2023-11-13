@@ -2,13 +2,13 @@ const express = require("express");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
-const verifySignUp = require("../server/app/middlewares/verifySignUp");
+const verifySignUp = require("./app/middlewares/verifySignUp");
 const dbConfig = require("./app/config/db.config");
 
 const app = express();
 
 var corsOptions = {
-  origin: ["http://localhost:8081"],
+  origin: ["https://garage365.netlify.app"],
   credentials: true,
 };
 
