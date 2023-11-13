@@ -31,11 +31,29 @@ const db = require("./app/models");
 const Role = db.role;
 
 //Base de datos - Local
+// db.mongoose
+//   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => {
+//     console.log("MongoBD - READY");
+//     initial();
+//   })
+//   .catch((err) => {
+//     console.error("Error de conexion", err);
+//     process.exit();
+//   });
+
+//Base de datos - Online
 db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    `mongodb+srv://admin:admin@garage365db.u8qultk.mongodb.net/?retryWrites=true&w=majority`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log("MongoBD - READY");
     initial();
@@ -45,24 +63,6 @@ db.mongoose
     process.exit();
   });
 
-//Base de datos - Online
-// db.mongoose
-//   .connect(
-//     `mongodb+srv://admin:Facebook22@garage365.iboufc5.mongodb.net/?retryWrites=true&w=majority`,
-//     {
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true,
-//     }
-//   )
-//   .then(() => {
-//     console.log("MongoBD - READY");
-//     initial();
-//   })
-//   .catch((err) => {
-//     console.error("Error de conexion", err);
-//     process.exit();
-//   });
-//
 app.post("/api/auth/checkEmail", verifySignUp.checkDuplicateUsernameOrEmail);
 
 app.post(
