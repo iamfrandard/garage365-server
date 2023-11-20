@@ -1,0 +1,43 @@
+{
+  "name": "garage365-api",
+  "version": "1.0.0",
+  "description": "Server garage365-api",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "node.js",
+    "express",
+    "jwt",
+    "login",
+    "registration",
+    "authentication",
+    "authorization",
+    "mongodb",
+    "mongoose",
+    "nodemon"
+  ],
+  "author": "garage365-api",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-session": "^1.4.0",
+    "cors": "^2.8.5",
+    "date-fns": "^2.30.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.17.1",
+    "install": "^0.13.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.4",
+    "mongoose": "^5.13.17",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.6",
+    "nodemon": "^2.0.22",
+    "request": "^2.88.2",
+    "sharp": "^0.32.3",
+    "socket.io": "^4.7.2",
+    "stripe": "^14.3.0"
+  }
+}
