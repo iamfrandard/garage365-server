@@ -129,7 +129,7 @@ exports.signupE = (req, res) => {
 
   workshop.save(async (err, workshop) => {
     if (err) {
-      console.log("HOLA");
+      console.log(err);
       res.status(500).send({ message: err });
       return;
     }
