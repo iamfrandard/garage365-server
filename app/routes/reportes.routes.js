@@ -4,7 +4,6 @@ const router = express.Router();
 const Appointment = require("../models/appointment.model");
 const Workshop = require("../models/workshop.model");
 
-// reportes.routes.js
 router.get("/income/:workshopId", async (req, res) => {
   const workshopId = req.params.workshopId;
 
@@ -63,7 +62,6 @@ router.get("/total-appointments/:workshopId", async (req, res) => {
   }
 });
 
-// Obtener estadísticas de servicios más utilizados
 router.get("/popular-services/:workshopId", async (req, res) => {
   const workshopId = req.params.workshopId;
 

@@ -50,7 +50,6 @@ exports.update = (req, res) => {
     });
   }
 
-  // Hashear la contraseña antes de almacenarla
   bcrypt.hash(req.body.password, saltRounds, (err, hashedPassword) => {
     if (err) {
       return res.status(500).send({ message: "Error hashing password" });
@@ -63,7 +62,6 @@ exports.update = (req, res) => {
     )
       .then((data) => {
         if (!data) {
-          // Si no se encuentra el usuario, intenta buscar en Workshop
           Workshop.findByIdAndUpdate(
             id,
             { password: hashedPassword },

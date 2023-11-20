@@ -25,8 +25,8 @@ exports.getWorkshops = async (req, res) => {
   const address = req.query.address;
 
   const filter = {};
-  if (brand) filter.brand = brand; // Asumiendo que 'brand' es un campo en tu modelo.
-  if (address) filter.address = address; // Asumiendo que 'address' es un campo en tu modelo.
+  if (brand) filter.brand = brand;
+  if (address) filter.address = address;
 
   try {
     const workshops = await Workshop.find(filter)

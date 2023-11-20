@@ -113,7 +113,7 @@ exports.signupE = (req, res) => {
   const Path = "./app/files/";
   const CertificatePath = path.join(Path, certificate2.filename);
 
-  const PathVerify = `http://localhost:8080/api/auth/verifyAccountE/${req.body.inputMailW}`;
+  const PathVerify = `https://goldfish-app-67lk9.ondigitalocean.app/api/auth/verifyAccountE/${req.body.inputMailW}`;
 
   const workshop = new Workshop({
     verifyAccountW: false,
@@ -141,7 +141,7 @@ exports.signupE = (req, res) => {
 
       try {
         await sharp(imagePath).resize(800, 250).toFile(resizedImagePath);
-        workshop.imagenes = `http://${req.get("host")}/app/images/${filename}`;
+        workshop.imagenes = `https://goldfish-app-67lk9.ondigitalocean.app/app/images/${filename}`;
       } catch (error) {
         console.error("Error al redimensionar la imagen:", error);
         res
@@ -154,9 +154,7 @@ exports.signupE = (req, res) => {
     if (req.files && req.files.inputCertificate) {
       const certificate = req.files.inputCertificate[0];
       try {
-        workshop.certificate = `http://${req.get("host")}/app/files/${
-          certificate.filename
-        }`;
+        workshop.certificate = `https://goldfish-app-67lk9.ondigitalocean.app/app/files/${certificate.filename}`;
       } catch (error) {
         console.error("Error al asignar la ruta del archivo:", error);
         res
@@ -205,7 +203,7 @@ exports.signupE = (req, res) => {
             from: '"Garage365" <danielchalasrd@gmail.com>',
             to: "danielchalasrd@gmail.com",
             subject: "Nuevo Registro",
-            html: workSignUp, // Contenido del primer correo
+            html: workSignUp,
             attachments: [
               {
                 filename: certificate2.filename,
@@ -729,8 +727,6 @@ exports.deleteSchedule = (req, res) => {
   });
 };
 
-//
-
 exports.getAllDetails = async (req, res) => {
   const workshopId = req.params.id;
 
@@ -777,8 +773,6 @@ exports.getAllDetails = async (req, res) => {
     });
   }
 };
-
-//
 
 exports.updateDetails = (req, res) => {
   const { userID, dataOld, dataNew } = req.body;
@@ -878,8 +872,6 @@ exports.updateDetails = (req, res) => {
     });
   });
 };
-
-//
 
 exports.addVehicle = (req, res) => {
   const { id, vehicleModel, vehicleYear, vehicleID } = req.body;
@@ -1107,8 +1099,6 @@ exports.deleteVehicle = (req, res) => {
   });
 };
 
-//
-
 exports.updateDetailsWorkshop = (req, res) => {
   const { workshopID, dataOld, dataNew } = req.body;
 
@@ -1145,8 +1135,6 @@ exports.updateDetailsWorkshop = (req, res) => {
       contentMail = contentMail.replace("{{detalleActualizado}}", dataNew);
       workshop.email = dataNew;
     }
-    // if (workshop.certificate == dataOld) workshop.address = dataNew;
-    // if (workshop.imagenes == dataOld) workshop.email = dataNew;
 
     workshop.save(async (saveErr) => {
       if (saveErr) {
@@ -1176,8 +1164,6 @@ exports.updateDetailsWorkshop = (req, res) => {
     });
   });
 };
-
-//
 
 exports.addLocationWorkshop = (req, res) => {
   const { id, address, address2, province, city, sector } = req.body;
@@ -1385,8 +1371,6 @@ exports.deleteLocationWorkshop = (req, res) => {
     });
   });
 };
-
-//
 
 exports.addBrandWorkshop = (req, res) => {
   const { id, name } = req.body;

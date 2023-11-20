@@ -17,7 +17,6 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
       });
     }
 
-    // Si no encontramos el correo en User, buscamos en Workshop
     Workshop.findOne({ email: req.body.inputMail }, (err, workshop) => {
       if (err) {
         return res.status(500).send({
@@ -30,7 +29,6 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
           message: "¡El correo electrónico ya está en uso por un taller!",
         });
       }
-      // Si no encontramos el correo en ninguna de las dos colecciones, procedemos
       if (!user && !workshop) {
         next();
       }
@@ -80,13 +78,11 @@ getUserIDByEmail = (req, res, next) => {
         message: "Error al obtener el usuario por correo electrónico en User",
       });
     }
-    // Si encontramos el correo en User, almacenamos el ID y procedemos
     if (user) {
       req.userID = user._id;
       return next();
     }
 
-    // Si no encontramos el correo en User, buscamos en Workshop
     Workshop.findOne({ email: email }, (err, workshop) => {
       if (err) {
         return res.status(500).json({
@@ -94,13 +90,11 @@ getUserIDByEmail = (req, res, next) => {
         });
       }
 
-      // Si encontramos el correo en Workshop, almacenamos el ID y procedemos
       if (workshop) {
         req.workshopID = workshop._id;
         return next();
       }
 
-      // Si no encontramos el correo en ninguna de las dos colecciones, enviamos un error
       return res.status(404).json({
         message:
           "No se encontró un usuario o taller con ese correo electrónico",

@@ -15,7 +15,7 @@ const reviewSchema = new mongoose.Schema({
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Suponiendo que tienes un modelo de Usuario
+    ref: "User",
   },
   rating: {
     type: Number,

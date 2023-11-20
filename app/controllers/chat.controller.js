@@ -1,11 +1,10 @@
 const Session = require("../models/sesion.model");
 const Message = require("../models/message.model");
 
-// Iniciar una nueva sesión de chat
 exports.startSession = async (req, res) => {
   try {
-    const userId = req.userId; // Asumiendo que el ID del usuario está en el token
-    const expertId = await selectExpert(); // Implementa esta función según tu criterio
+    const userId = req.userId;
+    const expertId = await selectExpert();
 
     const session = new Session({ userId, expertId });
     await session.save();

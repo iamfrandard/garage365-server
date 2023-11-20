@@ -312,17 +312,15 @@ exports.updateL = async (req, res) => {
     ...req.body,
   };
 
-  // Si estás esperando un objeto anidado en req.body, asegúrate de que esté siendo parseado correctamente.
   if (typeof req.body.Bill === "string") {
     updateData.Bill = JSON.parse(req.body.Bill);
   }
 
-  // Si el estado es "Finalizado" y se ha subido un archivo, actualiza la información de la factura.
   if (req.file) {
     update["$set"]["Bill.amount"] = req.body["Bill.amount"];
-    update["$set"]["Bill.file"] = `http://${req.get("host")}/app/files/${
-      req.file.filename
-    }`;
+    update["$set"][
+      "Bill.file"
+    ] = `https://goldfish-app-67lk9.ondigitalocean.app/app/files/${req.file.filename}`;
 
     if (req.file) {
       try {
@@ -349,7 +347,6 @@ exports.updateL = async (req, res) => {
     }
   } else {
     try {
-      // Usa { new: true } para devolver el documento actualizado.
       const updatedAppointment = await Appointment.findByIdAndUpdate(
         id,
         updateData,
@@ -556,7 +553,7 @@ exports.cancelAppointment = async (req, res) => {
       });
     } catch (error) {
       console.error(`Error sending email: ${error.message}`);
-      success = false; // Indica que hubo un fallo
+      success = false;
     }
 
     if (success) {
@@ -595,7 +592,7 @@ exports.getCarsUsers = (req, res) => {
     : {};
 
   _User
-    .find(condition, { vehicles: 1, _id: 0 }) // Modificación aquí
+    .find(condition, { vehicles: 1, _id: 0 })
     .then((data) => {
       const vehicles = data.map((user) => user.vehicles).flat();
       res.send(vehicles);

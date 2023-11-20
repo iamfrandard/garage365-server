@@ -14,7 +14,6 @@ module.exports = (app) => {
   router.post("/", AppointmentClient.create);
   router.get("/", AppointmentClient.findAll);
 
-  //
   router.get("/published", AppointmentClient.findAllPublished);
 
   router.put("/:id", AppointmentClient.update);
@@ -23,27 +22,15 @@ module.exports = (app) => {
 
   router.get("/user/:id", AppointmentClient.findOneU);
 
-  //
   router.get("/:id", AppointmentClient.findOne);
-  //
+
   router.delete("/:id", AppointmentClient.delete);
-  //
+
   router.delete("/gola", AppointmentClient.deleteAll);
 
   router.get("/:workshopId/reviews", AppointmentClient.getWorkshopReviews);
 
   router.post("/:workshopId/addReview", AppointmentClient.addReviewToWorkshop);
-
-  //
-  // router.post(
-  //   "/bill/:id",
-  //   upload.single("billFile"),
-  //   (req, res, next) => {
-  //     console.log(req.file);
-  //     next();
-  //   },
-  //   AppointmentClient.updateL
-  // );
 
   router.post(
     "/:AppointmentID/cancelAppointment",
