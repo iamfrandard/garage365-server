@@ -1,1 +1,5 @@
-node_modules
+# Carpetas
+/node_modules
+
+# Archivos
+package-lock.json
