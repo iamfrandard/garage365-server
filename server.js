@@ -31,8 +31,6 @@ var corsOptions = {
   credentials: true,
 };
 
-const YOUR_DOMAIN = "http://localhost:8080";
-
 app.use(cors(corsOptions));
 
 app.use(express.json());
@@ -49,54 +47,33 @@ app.use(
   })
 );
 
-//Socket connection
-
 io.on("connection", (socket) => {
-  // console.log("Usuario conectado:", socket.id);
   socket.on("join_taller", async (data) => {
     const { tallerId, userId, userName, tallerName } = data;
     socket.join(`taller-${tallerId}`);
-    // console.log(
-    //   `Socket ${socket.id} se ha unido a la sala: taller-${tallerId}`
-    // );
 
     socket.on("leave_taller", (tallerId) => {
       socket.leave(`taller-${tallerId}`);
-      // console.log(`Socket ${socket.id} ha dejado la sala: taller-${tallerId}`);
     });
-
-    // Crear o recuperar la sesión de chat entre este usuario y taller
-    // console.log(
-    //   "Buscando sesión existente para userId:",
-    //   userId,
-    //   " y expertId:",
-    //   tallerId
-    // );
 
     let session = await Session.findOne({ userId, expertId: tallerId });
 
     if (!session) {
-      // console.log("No se encontró una sesión existente. Creando una nueva...");
       session = new Session({ userId, expertId: tallerId });
       await session.save();
       socket.emit("session", { _id: session._id, isNewSession: true });
-      // console.log("Nueva sesión creada:", session);
     } else {
       socket.emit("session", { _id: session._id, isNewSession: false });
-      // console.log("Sesión existente encontrada:", session);
     }
 
-    // Almacena los datos en el socket para usarlos más tarde
     socket.sessionId = session._id;
     socket.userId = userId;
     socket.userName = userName;
     socket.tallerId = tallerId;
     socket.tallerName = tallerName;
 
-    // Emitir el ID de sesión al cliente
     socket.emit("session_id", session._id);
 
-    // Enviar la información de la sesión al cliente
     socket.emit("session", { _id: session._id });
   });
 
@@ -108,17 +85,13 @@ io.on("connection", (socket) => {
         userName: messageData.userName,
         tallerId: socket.expertId || messageData.tallerId,
         tallerName: messageData.tallerName,
-        sessionId: socket.sessionId, //socket.id,
+        sessionId: socket.sessionId,
         sender: messageData.sender,
       });
 
-      // console.log("Datos del mensaje:", messageData); // Asumiendo que "mensajeData" contiene los datos del mensaje
-
       await newMessage.save();
 
-      // Emitir el mensaje a las sesiones específicas
       io.to(`taller-${newMessage.tallerId}`).emit("new_message", newMessage);
-      // console.log("Mensaje guardado y emitido correctamente");
     } catch (error) {
       console.error("Error al guardar el mensaje:", error);
     }
@@ -130,37 +103,18 @@ io.on("connection", (socket) => {
       if (session) {
         session.endedAt = new Date();
         await session.save();
-        // console.log("Sesión finalizada");
       }
     } catch (error) {
       console.error("Error al finalizar la sesión:", error);
     }
   });
 
-  socket.on("disconnect", () => {
-    // console.log("Usuario desconectado:", socket.id);
-  });
+  socket.on("disconnect", () => {});
 });
 
 const db = require("./app/models");
 const Role = db.role;
 
-//Base de datos - Local
-// db.mongoose
-//   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   })
-//   .then(() => {
-//     console.log("MongoBD - READY");
-//     initial();
-//   })
-//   .catch((err) => {
-//     console.error("Error de conexion", err);
-//     process.exit();
-//   });
-
-//Base de datos - Online
 db.mongoose
   .connect(
     `mongodb+srv://owner:1230@garage365db.u8qultk.mongodb.net/?retryWrites=true&w=majority`,
@@ -177,7 +131,7 @@ db.mongoose
     console.error("Error de conexion", err);
     process.exit();
   });
-//
+
 app.post("/api/auth/checkEmail", verifySignUp.checkDuplicateUsernameOrEmail);
 
 app.post(
