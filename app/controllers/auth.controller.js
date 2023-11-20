@@ -123,7 +123,11 @@ exports.signupE = (req, res) => {
     password: bcrypt.hashSync(req.body.inputPasswordW, 8),
     idNumber: req.body.inputWorkshopID,
     locations: locations,
-    vehicleBrand: brands,
+    vehicleBrand: brands
+      ? {
+          name: brands,
+        }
+      : { name: brands },
     vehicleService: services,
   });
 
