@@ -123,7 +123,7 @@ exports.signupE = (req, res) => {
     password: bcrypt.hashSync(req.body.inputPasswordW, 8),
     idNumber: req.body.inputWorkshopID,
     locations: locations,
-    vehicleBrand: { name: brands },
+    vehicleBrand: brands.map((brand) => ({ name: brand })),
     vehicleService: services,
   });
 
