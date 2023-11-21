@@ -586,22 +586,26 @@ exports.getAllEmployee = (req, res) => {
 };
 
 exports.getCarsUsers = (req, res) => {
-  const UserID = req.params.UserID;
+  const userID = req.params.UserID;
 
-  if (!UserID) {
+  if (!userID) {
     return res.status(400).send({
       message: "No UserID provided.",
     });
   }
 
-  // Aquí asumo que 'UserID' es un campo en tus documentos. Si es el _id, cambia 'UserID' por '_id'.
-  var condition = { UserID: { $regex: new RegExp(UserID), $options: "i" } };
-
+  // Suponiendo que 'UserID' es el '_id' del documento de usuario
   _User
-    .find(condition)
+    .findOne({ _id: userID })
     .select("vehicles -_id") // Selecciona solo el campo 'vehicles' y excluye '_id'
-    .then((data) => {
-      const vehicles = data.flatMap((user) => user.vehicles);
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({
+          message: "User not found.",
+        });
+      }
+
+      const vehicles = user.vehicles;
       res.send(vehicles);
     })
     .catch((err) => {
