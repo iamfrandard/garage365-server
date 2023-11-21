@@ -588,14 +588,12 @@ exports.getAllEmployee = (req, res) => {
 exports.getCarsUsers = (req, res) => {
   const UserID = req.body.UserID;
 
-  // Validar si se proporcionó UserID
   if (!UserID) {
     return res.status(400).send({
       message: "No UserID provided.",
     });
   }
 
-  // Condición para buscar solo los vehículos asociados con el UserID proporcionado
   var condition = { UserID: { $regex: new RegExp(UserID), $options: "i" } };
 
   _User
