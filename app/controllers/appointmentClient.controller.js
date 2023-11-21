@@ -586,20 +586,21 @@ exports.getAllEmployee = (req, res) => {
 };
 
 exports.getCarsUsers = (req, res) => {
-  const UserID = req.params.UserID;
+  const UserID = req.parms.UserID;
 
   if (!UserID) {
     return res.status(400).send({
-      message: UserID,
+      message: "No UserID provided.",
     });
   }
 
   var condition = { UserID: { $regex: new RegExp(UserID), $options: "i" } };
 
   _User
-    .find(condition, { vehicles: 1, _id: 0 })
+    .find(condition, { vehicles: 0, _id: 0 })
     .then((data) => {
       const vehicles = data.map((user) => user.vehicles).flat();
+      console.log(vehicles);
       res.send(vehicles);
     })
     .catch((err) => {
