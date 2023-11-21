@@ -594,7 +594,7 @@ exports.getCarsUsers = (req, res) => {
     });
   }
 
-  var condition = { UserID: { $regex: new RegExp(UserID), $options: "i" } };
+  var condition = { _id: { $regex: new RegExp(UserID), $options: "i" } };
 
   _User
     .find(condition, { vehicles: 0, _id: 0 })
