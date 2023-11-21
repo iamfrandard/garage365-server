@@ -587,9 +587,16 @@ exports.getAllEmployee = (req, res) => {
 
 exports.getCarsUsers = (req, res) => {
   const UserID = req.body.UserID;
-  var condition = UserID
-    ? { UserID: { $regex: new RegExp(UserID), $options: "i" } }
-    : {};
+
+  // Validar si se proporcionó UserID
+  if (!UserID) {
+    return res.status(400).send({
+      message: "No UserID provided.",
+    });
+  }
+
+  // Condición para buscar solo los vehículos asociados con el UserID proporcionado
+  var condition = { UserID: { $regex: new RegExp(UserID), $options: "i" } };
 
   _User
     .find(condition, { vehicles: 1, _id: 0 })
@@ -600,7 +607,7 @@ exports.getCarsUsers = (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials.",
+          err.message || "Some error occurred while retrieving vehicles.",
       });
     });
 };
