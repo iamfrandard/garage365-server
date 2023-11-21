@@ -586,15 +586,15 @@ exports.getAllEmployee = (req, res) => {
 };
 
 exports.getCarsUsers = (req, res) => {
-  const _UserID = req.params.UserID;
+  const UserID = req.params.UserID;
 
-  if (!_UserID) {
+  if (!UserID) {
     return res.status(400).send({
       message: UserID,
     });
   }
 
-  var condition = { UserID: { $regex: new RegExp(_UserID), $options: "i" } };
+  var condition = { UserID: { $regex: new RegExp(UserID), $options: "i" } };
 
   _User
     .find(condition, { vehicles: 1, _id: 0 })
