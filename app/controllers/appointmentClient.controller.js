@@ -586,7 +586,7 @@ exports.getAllEmployee = (req, res) => {
 };
 
 exports.getCarsUsers = (req, res) => {
-  const _UserID = req.body.UserID;
+  const _UserID = req.params.UserID;
 
   if (!_UserID) {
     return res.status(400).send({
