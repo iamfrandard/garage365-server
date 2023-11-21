@@ -594,13 +594,14 @@ exports.getCarsUsers = (req, res) => {
     });
   }
 
-  var condition = { _id: { $regex: new RegExp(UserID), $options: "i" } };
+  // Aquí asumo que 'UserID' es un campo en tus documentos. Si es el _id, cambia 'UserID' por '_id'.
+  var condition = { UserID: { $regex: new RegExp(UserID), $options: "i" } };
 
   _User
-    .find(condition, { vehicles: 0, _id: 0 })
+    .find(condition)
+    .select("vehicles -_id") // Selecciona solo el campo 'vehicles' y excluye '_id'
     .then((data) => {
-      const vehicles = data.map((user) => user.vehicles).flat();
-      console.log(vehicles);
+      const vehicles = data.flatMap((user) => user.vehicles);
       res.send(vehicles);
     })
     .catch((err) => {
