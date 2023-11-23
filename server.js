@@ -233,7 +233,7 @@ app.get("/api/appointment", async (req, res) => {
   let query = {};
 
   if (brand) {
-    query.vehicleBrand = new RegExp(brand, "i");
+    query["vehicleBrand.name"] = new RegExp(brand, "i");
   }
 
   if (address) {
