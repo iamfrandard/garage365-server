@@ -78,7 +78,7 @@ exports.search = (req, res) => {
 
 exports.getAllBrands = (req, res) => {
   Workshop.find()
-    .distinct("vehicleBrand")
+    .distinct("vehicleBrand.name")
     .then((data) => res.send(data))
     .catch((err) => {
       res.status(500).send({
