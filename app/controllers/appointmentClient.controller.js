@@ -266,6 +266,41 @@ exports.update = async (req, res) => {
         html: statusChanges2,
       });
 
+      var request = require("request");
+
+      var options = {
+        method: "POST",
+        url: "https://api.ultramsg.com/instance68993/messages/chat",
+        headers: { "content-type": "application/x-www-form-urlencoded" },
+        form: {
+          token: "9dn1546bqgysjy72",
+          to: user.phoneNumber,
+          body: `¡Hola ${_name}! 🚗 Gracias por usar *Garage365*. Aquí te paso los detalles de tu próxima cita:
+    
+    - *Taller:* ${_workshop}
+    - *Horario:* ${_schedule} 📅
+    - *Servicio:* ${_service} 🛢️
+    - *Estado:* Confirmada⏳
+    
+    *${_employee}* será el técnico que te atenderá. 👨‍🔧👍
+    
+    Recuerda llegar puntual a tu cita. Si por alguna razón necesitas cancelar o cambiarla, solo avísanos con tiempo. 🕒
+    
+    *Tu cita está en:*
+    ${_location} 📍
+    
+    Estamos aquí para ofrecerte un servicio de primera y cuidar de tu vehículo como si fuera nuestro. 💪
+    
+    Cualquier duda o consulta, estamos a un mensaje de distancia: Info@garage365.com. ¡Nos vemos pronto! 🎉`,
+          priority: "10",
+          referenceId: "instance68993",
+        },
+      };
+
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+      });
+
       res.send({ message: "OK" });
       return;
     }
