@@ -305,7 +305,7 @@ exports.update = async (req, res) => {
       return;
     }
 
-    if (req.body.Status == "Finalizada") {
+    if (req.body.Status == "Finalizado") {
       let statusChanges3 = fs.readFileSync(
         "./app/mails/appointmentComplete.html",
         "utf8"
