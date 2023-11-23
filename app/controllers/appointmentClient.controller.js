@@ -267,6 +267,7 @@ exports.update = async (req, res) => {
       });
 
       res.send({ message: "OK" });
+      return;
     }
 
     var request = require("request");
