@@ -31,7 +31,7 @@ module.exports = function (app) {
       { name: "inputCertificate", maxCount: 1 },
     ]),
     [
-      verifySignUp.checkDuplicateUsernameOrEmailWorkshop,
+      verifySignUp.checkDuplicateUsernameOrEmail,
       verifySignUp.checkRolesExisted,
     ],
     controller.signupE
