@@ -21,13 +21,11 @@ exports.findAll = (req, res) => {
 exports.getWorkshops = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 12;
-  //const brand = req.query.brand;
+  const brand = req.query.brand;
   const address = req.query.address;
 
-  const brand2 = req.query.brand?.name;
-
   const filter = {};
-  if (brand2) filter.brand = brand2;
+  if (brand) filter.brand = brand;
   if (address) filter.address = address;
 
   try {
