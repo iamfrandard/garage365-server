@@ -77,9 +77,14 @@ exports.search = (req, res) => {
 };
 
 exports.getAllBrands = (req, res) => {
-  Workshop.find()
-    .distinct("vehicleBrand.name")
-    .then((data) => res.send(data))
+  Workshop.aggregate([
+    { $unwind: "$vehicleBrand" },
+    { $group: { _id: "$vehicleBrand.name" } },
+  ])
+    .then((data) => {
+      const brands = data.map((item) => item._id);
+      res.send(brands);
+    })
     .catch((err) => {
       res.status(500).send({
         message: err.message || "Some error occurred while retrieving brands.",
