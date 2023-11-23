@@ -266,7 +266,109 @@ exports.update = async (req, res) => {
         html: statusChanges2,
       });
 
+      var request = require("request");
+
+      var options = {
+        method: "POST",
+        url: "https://api.ultramsg.com/instance68993/messages/chat",
+        headers: { "content-type": "application/x-www-form-urlencoded" },
+        form: {
+          token: "9dn1546bqgysjy72",
+          to: user.phoneNumber,
+          body: `¡Hola ${_name}! 🚗 Gracias por usar *Garage365*. Aquí te paso los detalles de tu próxima cita:
+    
+    - *Taller:* ${_workshop}
+    - *Horario:* ${_schedule} 📅
+    - *Servicio:* ${_service} 🛢️
+    - *Estado:* Confirmada⏳
+    
+    *${_employee}* será el técnico que te atenderá. 👨‍🔧👍
+    
+    Recuerda llegar puntual a tu cita. Si por alguna razón necesitas cancelar o cambiarla, solo avísanos con tiempo. 🕒
+    
+    *Tu cita está en:*
+    ${_location} 📍
+    
+    Estamos aquí para ofrecerte un servicio de primera y cuidar de tu vehículo como si fuera nuestro. 💪
+    
+    Cualquier duda o consulta, estamos a un mensaje de distancia: Info@garage365.com. ¡Nos vemos pronto! 🎉`,
+          priority: "10",
+          referenceId: "instance68993",
+        },
+      };
+
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+      });
+
       res.send({ message: "OK" });
+      return;
+    }
+
+    if (req.body.Status == "Finalizado") {
+      let statusChanges3 = fs.readFileSync(
+        "./app/mails/appointmentComplete.html",
+        "utf8"
+      );
+
+      statusChanges3 = statusChanges3.replace("{{workshop}}", _workshop);
+      statusChanges3 = statusChanges3.replace("{{schedule}}", _schedule);
+      statusChanges3 = statusChanges3.replace("{{service}}", _service);
+      statusChanges3 = statusChanges3.replace("{{location}}", _location);
+      statusChanges3 = statusChanges3.replace("{{employee}}", _employee);
+
+      await mailer.send.sendMail({
+        from: '"Garage365" <danielchalasrd@gmail.com>',
+        to: userEmail,
+        subject: "Reserva Finalizada - Garage365",
+        text: "",
+        html: statusChanges3,
+      });
+
+      await mailer.send.sendMail({
+        from: '"Garage365" <danielchalasrd@gmail.com>',
+        to: workshopEmail,
+        subject: "Reserva Finalizada - Garage365",
+        text: "",
+        html: statusChanges3,
+      });
+
+      var request = require("request");
+
+      var options = {
+        method: "POST",
+        url: "https://api.ultramsg.com/instance68993/messages/chat",
+        headers: { "content-type": "application/x-www-form-urlencoded" },
+        form: {
+          token: "9dn1546bqgysjy72",
+          to: user.phoneNumber,
+          body: `¡Hola ${_name}! 🚗 En *Garage365* estamos contentos de informarte que tu vehículo ya está listo.
+
+Aquí te resumimos los detalles de la atención brindada:
+
+- *Taller:* ${_workshop}
+- *Servicio:* ${_service} 🛢️
+- *Estado:* ¡Servicio completado! 🏁
+
+El técnico asignado fue *${_employee}* 👨‍🔧👍.
+
+Tu vehículo está esperándote y puedes proceder con el pago. Por favor, visita nnuestra plataforma en línea para realizarlo.
+
+*Dirección para recoger tu vehículo:*
+${_location} 📍
+
+Agradecemos tu confianza en nosotros y esperamos haber satisfecho tus necesidades. Si tienes alguna duda o necesitas asistencia adicional, no dudes en contactarnos: Info@garage365.com. ¡Esperamos verte pronto! 🎉`,
+          priority: "10",
+          referenceId: "instance68993",
+        },
+      };
+
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+      });
+
+      res.send({ message: "OK" });
+      return;
     }
 
     var request = require("request");
