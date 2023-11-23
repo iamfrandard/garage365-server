@@ -1,5 +1,7 @@
 const Session = require("../models/sesion.model");
 const Message = require("../models/message.model");
+const mailer = require("../config/mailer");
+const fs = require("fs");
 
 exports.startSession = async (req, res) => {
   try {
@@ -171,6 +173,62 @@ exports.getActiveUnreadSessionsForExpert = async (req, res) => {
     const unreadMessages = await Message.find({
       sessionId: { $in: sessions.map((session) => session._id) },
       responded: false,
+    });
+
+    const user = await _User.findById(updatedAppointment.UserID);
+    if (!user) {
+      return res.status(404).send({
+        message: `User with id=${updatedAppointment.UserID} was not found!`,
+      });
+    }
+
+    const workshop = await _Workshop.findOne({
+      WorkshopName: updatedAppointment.Workshop,
+    });
+    if (!workshop) {
+      return res.status(404).send({
+        message: `Workshop with name=${updatedAppointment.Workshop} was not found!`,
+      });
+    }
+
+    const userEmail = user.email;
+    const workshopEmail = workshop.email;
+
+    const _workshop = workshop.WorkshopName;
+    const _schedule = updatedAppointment.Schedule;
+    const _service = updatedAppointment.Service;
+    const _status = req.body.Status;
+    const _location = updatedAppointment.Location;
+    const _employee = updatedAppointment.Employee;
+
+    let _name = user.firstName + " " + user.lastName;
+
+    let statusChanges = fs.readFileSync(
+      "./app/mails/unreadmessage.html",
+      "utf8"
+    );
+
+    statusChanges = statusChanges.replace("{{workshop}}", _workshop);
+    statusChanges = statusChanges.replace("{{schedule}}", _user);
+    statusChanges = statusChanges.replace("{{service}}", _service);
+    statusChanges = statusChanges.replace("{{status}}", _status);
+    statusChanges = statusChanges.replace("{{location}}", _location);
+    statusChanges = statusChanges.replace("{{employee}}", _employee);
+
+    await mailer.send.sendMail({
+      from: '"Garage365" <danielchalasrd@gmail.com>',
+      to: userEmail,
+      subject: "Mensaje sin leer - {{Workshop}}",
+      text: "",
+      html: statusChanges,
+    });
+
+    await mailer.send.sendMail({
+      from: '"Garage365" <danielchalasrd@gmail.com>',
+      to: workshopEmail,
+      subject: "Mensaje sin leer - {{User}}",
+      text: "",
+      html: statusChanges,
     });
 
     // Si no hay mensajes sin leer, devolver una respuesta.
