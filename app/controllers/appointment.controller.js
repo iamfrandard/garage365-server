@@ -59,7 +59,7 @@ exports.search = (req, res) => {
     Workshop.find({
       $or: [
         { WorkshopName: new RegExp(value, "i") },
-        { vehicleBrand: new RegExp(value, "i") },
+        { "vehicleBrand.name": new RegExp(value, "i") },
         { "locations.address": new RegExp(value, "i") },
       ],
     })
