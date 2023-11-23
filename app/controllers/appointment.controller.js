@@ -50,6 +50,7 @@ exports.getWorkshops = async (req, res) => {
 exports.search = (req, res) => {
   try {
     const value = req.query.value;
+    console.log(value);
     if (!value) {
       return res
         .status(400)
