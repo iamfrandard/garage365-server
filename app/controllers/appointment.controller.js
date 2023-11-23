@@ -24,8 +24,11 @@ exports.getWorkshops = async (req, res) => {
   const brand = req.query.brand;
   const address = req.query.address;
 
+  console.log(brand);
+  console.log(address);
+
   const filter = {};
-  if (brand) filter.brand = brand;
+  if (brand) filter.brand.name = brand;
   if (address) filter.address = address;
 
   try {
