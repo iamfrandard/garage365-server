@@ -102,14 +102,14 @@ exports.create = async (req, res) => {
     let sendMail = {
       from: '"Garage365" <danielchalasrd@gmail.com>',
       to: userEmail,
-      subject: "Confirmación de Cita - Garage365",
+      subject: "Detalles de la Reserva - Garage365",
       html: userAppointment,
     };
 
     let sendMail2 = {
       from: '"Garage365" <danielchalasrd@gmail.com>',
       to: workshopEmail,
-      subject: "Confirmación de Cita - Garage365",
+      subject: "Detalles de la Reserva - Garage365",
       html: workshopAppointment,
     };
 
@@ -247,14 +247,13 @@ exports.update = async (req, res) => {
       statusChanges2 = statusChanges2.replace("{{workshop}}", _workshop);
       statusChanges2 = statusChanges2.replace("{{schedule}}", _schedule);
       statusChanges2 = statusChanges2.replace("{{service}}", _service);
-      statusChanges2 = statusChanges2.replace("{{status}}", _status);
       statusChanges2 = statusChanges2.replace("{{location}}", _location);
       statusChanges2 = statusChanges2.replace("{{employee}}", _employee);
 
       await mailer.send.sendMail({
         from: '"Garage365" <danielchalasrd@gmail.com>',
         to: userEmail,
-        subject: "Confirmacion de reserva - Garage365",
+        subject: "Confirmación de reserva - Garage365",
         text: "",
         html: statusChanges2,
       });
@@ -262,7 +261,7 @@ exports.update = async (req, res) => {
       await mailer.send.sendMail({
         from: '"Garage365" <danielchalasrd@gmail.com>',
         to: workshopEmail,
-        subject: "Confirmacion de reserva - Garage365",
+        subject: "Confirmación de reserva - Garage365",
         text: "",
         html: statusChanges2,
       });
