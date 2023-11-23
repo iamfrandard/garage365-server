@@ -37,6 +37,39 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
 };
 
 checkDuplicateUsernameOrEmailWorkshop = (req, res, next) => {
+  User.findOne({ email: req.body.inputMailW }, (err, user) => {
+    if (err) {
+      return res
+        .status(500)
+        .send({ message: "Error al verificar el correo electrónico en User" });
+    }
+    if (user) {
+      return res.status(400).json({
+        exists: true,
+        message: "¡El correo electrónico ya está en uso por un usuario!",
+      });
+    }
+
+    Workshop.findOne({ email: req.body.inputMailW }, (err, workshop) => {
+      if (err) {
+        return res.status(500).send({
+          message: "Error al verificar el correo electrónico en Workshop",
+        });
+      }
+      if (workshop) {
+        return res.status(400).json({
+          exists: true,
+          message: "¡El correo electrónico ya está en uso por un taller!",
+        });
+      }
+      if (!user && !workshop) {
+        next();
+      }
+    });
+  });
+};
+
+/*checkDuplicateUsernameOrEmailWorkshop = (req, res, next) => {
   Workshop.findOne({ email: req.body.inputMailW }, (err, taller) => {
     if (err) {
       return res
@@ -53,7 +86,7 @@ checkDuplicateUsernameOrEmailWorkshop = (req, res, next) => {
     }
     next();
   });
-};
+};*/
 
 checkRolesExisted = (req, res, next) => {
   if (req.body.roles) {
