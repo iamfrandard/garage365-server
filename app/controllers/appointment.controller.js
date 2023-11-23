@@ -21,11 +21,13 @@ exports.findAll = (req, res) => {
 exports.getWorkshops = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 12;
-  const brand = req.query.brand;
+  //const brand = req.query.brand;
   const address = req.query.address;
 
+  const brand2 = req.query.brand?.name;
+
   const filter = {};
-  if (brand) filter.brand = brand;
+  if (brand2) filter.brand = brand2;
   if (address) filter.address = address;
 
   try {
@@ -75,23 +77,6 @@ exports.search = (req, res) => {
     res.status(500).send({ message: "Error inesperado durante la búsqueda" });
   }
 };
-
-/*exports.findOne = (req, res) => {
-  const name = req.params.id;
-  Workshop.findOne({ WorkshopName: name })
-    .then((data) => {
-      if (!data)
-        res
-          .status(404)
-          .send({ message: "Not found Workshop with name " + name });
-      else res.send(data);
-    })
-    .catch((err) => {
-      res
-        .status(500)
-        .send({ message: "Error retrieving Workshop with name=" + name });
-    });
-};*/
 
 exports.findOne = (req, res) => {
   const name = req.params.id;
