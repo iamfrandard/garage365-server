@@ -226,6 +226,50 @@ exports.update = async (req, res) => {
 
     let _name = user.firstName + " " + user.lastName;
 
+    let statusChanges = fs.readFileSync(
+      "./app/mails/statusChanges.html",
+      "utf8"
+    );
+
+    statusChanges = statusChanges.replace("{{workshop}}", _workshop);
+    statusChanges = statusChanges.replace("{{schedule}}", _schedule);
+    statusChanges = statusChanges.replace("{{service}}", _service);
+    statusChanges = statusChanges.replace("{{status}}", _status);
+    statusChanges = statusChanges.replace("{{location}}", _location);
+    statusChanges = statusChanges.replace("{{employee}}", _employee);
+
+    if (req.body.Confirm == true) {
+      let statusChanges2 = fs.readFileSync(
+        "./app/mails/appointmentConfirm.html",
+        "utf8"
+      );
+
+      statusChanges2 = statusChanges2.replace("{{workshop}}", _workshop);
+      statusChanges2 = statusChanges2.replace("{{schedule}}", _schedule);
+      statusChanges2 = statusChanges2.replace("{{service}}", _service);
+      statusChanges2 = statusChanges2.replace("{{status}}", _status);
+      statusChanges2 = statusChanges2.replace("{{location}}", _location);
+      statusChanges2 = statusChanges2.replace("{{employee}}", _employee);
+
+      await mailer.send.sendMail({
+        from: '"Garage365" <danielchalasrd@gmail.com>',
+        to: userEmail,
+        subject: "Confirmacion de reserva - Garage365",
+        text: "",
+        html: statusChanges2,
+      });
+
+      await mailer.send.sendMail({
+        from: '"Garage365" <danielchalasrd@gmail.com>',
+        to: workshopEmail,
+        subject: "Confirmacion de reserva - Garage365",
+        text: "",
+        html: statusChanges2,
+      });
+
+      res.send({ message: "OK" });
+    }
+
     var request = require("request");
 
     var options = {
@@ -260,18 +304,6 @@ exports.update = async (req, res) => {
     request(options, function (error, response, body) {
       if (error) throw new Error(error);
     });
-
-    let statusChanges = fs.readFileSync(
-      "./app/mails/statusChanges.html",
-      "utf8"
-    );
-
-    statusChanges = statusChanges.replace("{{workshop}}", _workshop);
-    statusChanges = statusChanges.replace("{{schedule}}", _schedule);
-    statusChanges = statusChanges.replace("{{service}}", _service);
-    statusChanges = statusChanges.replace("{{status}}", _status);
-    statusChanges = statusChanges.replace("{{location}}", _location);
-    statusChanges = statusChanges.replace("{{employee}}", _employee);
 
     await mailer.send.sendMail({
       from: '"Garage365" <danielchalasrd@gmail.com>',
