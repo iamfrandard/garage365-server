@@ -76,44 +76,6 @@ exports.search = (req, res) => {
   }
 };
 
-exports.findOne = (req, res) => {
-  const name = req.params.id;
-  Workshop.findById(name)
-    .then((data) => {
-      if (!data)
-        res.status(404).send({ message: "Not found Workshop with id " + name });
-      else res.send(data);
-    })
-    .catch((err) => {
-      res
-        .status(500)
-        .send({ message: "Error retrieving Workshop with id=" + name });
-    });
-};
-
-exports.update = (req, res) => {
-  if (!req.body) {
-    return res.status(400).send({
-      message: "Data to update can not be empty!",
-    });
-  }
-
-  const id = req.params.id;
-  Workshop.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-    .then((data) => {
-      if (!data) {
-        res.status(404).send({
-          message: `Cannot update Workshop with id=${id}. Maybe Workshop was not found!`,
-        });
-      } else res.send({ message: "Workshop was updated successfully." });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Error updating Workshop with id=" + id,
-      });
-    });
-};
-
 exports.getAllBrands = (req, res) => {
   Workshop.find()
     .distinct("vehicleBrand")
@@ -140,4 +102,44 @@ exports.getAllAddresses = (req, res) => {
           err.message || "Some error occurred while retrieving addresses.",
       })
     );
+};
+
+//NO SE USA
+exports.findOne = (req, res) => {
+  const name = req.params.id;
+  Workshop.findById(name)
+    .then((data) => {
+      if (!data)
+        res.status(404).send({ message: "Not found Workshop with id " + name });
+      else res.send(data);
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .send({ message: "Error retrieving Workshop with id=" + name });
+    });
+};
+
+//NO SE USA
+exports.update = (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Data to update can not be empty!",
+    });
+  }
+
+  const id = req.params.id;
+  Workshop.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update Workshop with id=${id}. Maybe Workshop was not found!`,
+        });
+      } else res.send({ message: "Workshop was updated successfully." });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating Workshop with id=" + id,
+      });
+    });
 };
