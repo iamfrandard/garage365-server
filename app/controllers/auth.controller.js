@@ -121,6 +121,7 @@ exports.signupE = (req, res) => {
     phoneNumber: req.body.inputNumberW,
     email: req.body.inputMailW,
     password: bcrypt.hashSync(req.body.inputPasswordW, 8),
+    imagenes: req.body.inputImage,
     idNumber: req.body.inputWorkshopID,
     locations: locations,
     vehicleBrand: brands.map((brand) => ({ name: brand })),
@@ -134,7 +135,7 @@ exports.signupE = (req, res) => {
       return;
     }
 
-    if (req.files && req.files.inputImage) {
+    /*if (req.files && req.files.inputImage) {
       const image = req.files.inputImage[0];
       const imagePath = image.path;
       const filename = `${Date.now()}.${image.mimetype.split("/")[1]}`;
@@ -150,7 +151,7 @@ exports.signupE = (req, res) => {
           .send({ message: "Ocurrió un error al redimensionar la imagen" });
         return;
       }
-    }
+    }*/
 
     if (req.files && req.files.inputCertificate) {
       const certificate = req.files.inputCertificate[0];
