@@ -322,7 +322,7 @@ exports.update = async (req, res) => {
         to: userEmail,
         subject: "Reserva Finalizada - Garage365",
         text: "",
-        html: statusChanges2,
+        html: statusChanges3,
       });
 
       await mailer.send.sendMail({
@@ -330,7 +330,7 @@ exports.update = async (req, res) => {
         to: workshopEmail,
         subject: "Reserva Finalizada - Garage365",
         text: "",
-        html: statusChanges2,
+        html: statusChanges3,
       });
 
       var request = require("request");
