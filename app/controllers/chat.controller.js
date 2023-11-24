@@ -117,7 +117,7 @@ exports.markMessageAsRead = async (req, res) => {
     // Actualizar el mensaje a leído
     const message = await Message.findByIdAndUpdate(
       messageId,
-      { responded: true },
+      { isRead: true },
       { new: true }
     );
 
@@ -178,6 +178,7 @@ exports.getActiveUnreadSessionsForExpert = async (req, res) => {
     const unreadMessages = await Message.find({
       sessionId: { $in: sessions.map((session) => session._id) },
       responded: false,
+      isRead: false,
       sender: { $ne: expertId },
     });
 
