@@ -182,7 +182,7 @@ exports.getActiveUnreadSessionsForExpert = async (req, res) => {
       sender: { $ne: expertId },
     });
 
-    const user = await _User.findById(updatedAppointment.UserID);
+    const user = await User.findById(updatedAppointment.UserID);
     if (!user) {
       return res.status(404).send({
         message: `User with id was not found!`,
