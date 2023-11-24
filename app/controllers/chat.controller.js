@@ -2,6 +2,8 @@ const Session = require("../models/sesion.model");
 const Message = require("../models/message.model");
 const db = require("../models");
 const User = require("../models/user.model");
+const _Workshop = db.workshop;
+const _User = db.user;
 const mailer = require("../config/mailer");
 const fs = require("fs");
 
@@ -180,7 +182,7 @@ exports.getActiveUnreadSessionsForExpert = async (req, res) => {
       sender: { $ne: expertId },
     });
 
-    const user = await User.findById(updatedAppointment.UserID);
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).send({
         message: `User with id was not found!`,
