@@ -226,7 +226,6 @@ exports.getActiveUnreadSessionsForExpert = async (req, res) => {
             text: "Tienes mensajes no leídos en tu sesión de chat. Por favor, revisa tu sesión para leerlos.",
             html: statusChanges,
           });
-
           /*await mailer.send.sendMail({
             from: '"Garage365" <danielchalasrd@gmail.com>',
             to: workshopEmail,
