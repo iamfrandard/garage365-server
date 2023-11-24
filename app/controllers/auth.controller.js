@@ -135,24 +135,6 @@ exports.signupE = (req, res) => {
       return;
     }
 
-    /*if (req.files && req.files.inputImage) {
-      const image = req.files.inputImage[0];
-      const imagePath = image.path;
-      const filename = `${Date.now()}.${image.mimetype.split("/")[1]}`;
-      const resizedImagePath = path.join(__dirname, `../images/${filename}`);
-
-      try {
-        await sharp(imagePath).resize(800, 250).toFile(resizedImagePath);
-        workshop.imagenes = `https://goldfish-app-67lk9.ondigitalocean.app/app/images/${filename}`;
-      } catch (error) {
-        console.error("Error al redimensionar la imagen:", error);
-        res
-          .status(500)
-          .send({ message: "Ocurrió un error al redimensionar la imagen" });
-        return;
-      }
-    }*/
-
     if (req.files && req.files.inputCertificate) {
       const certificate = req.files.inputCertificate[0];
       try {

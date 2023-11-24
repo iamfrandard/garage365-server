@@ -27,6 +27,10 @@ module.exports = (app) => {
   router.patch("/message/answered/:messageId", verifyToken, markAsAnswered);
   router.get("/unread", getActiveUnreadSessionsForExpert);
   router.get("/chatmessages/:sessionId", chatController.getMessagesForSession);
-
+  router.patch(
+    "/message/read/:messageId",
+    verifyToken,
+    chatController.markMessageAsRead
+  );
   app.use("/api/chat", router);
 };

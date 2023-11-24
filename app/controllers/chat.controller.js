@@ -1,5 +1,9 @@
 const Session = require("../models/sesion.model");
 const Message = require("../models/message.model");
+const db = require("../models");
+const User = require("../models/user.model");
+const _Workshop = db.workshop;
+const _User = db.user;
 const mailer = require("../config/mailer");
 const fs = require("fs");
 
@@ -61,43 +65,6 @@ exports.sendMessage = async (req, res) => {
   }
 };
 
-// Obtener mensajes sin respuesta para un experto específico
-exports.getUnansweredMessagesForExpert = async (req, res) => {
-  try {
-    const expertId = req.userId; // Asumiendo que el ID del experto está en el token
-
-    // Encuentra los mensajes donde el expertId coincide y no han sido respondidos
-    const unansweredMessages = await Message.find({
-      expertId,
-      responded: false,
-    }).sort("createdAt");
-
-    res.status(200).json(unansweredMessages);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-exports.markAsAnswered = async (req, res) => {
-  try {
-    const { messageId } = req.params;
-
-    const message = await Message.findByIdAndUpdate(
-      messageId,
-      { isAnswered: true },
-      { new: true }
-    );
-
-    if (!message) {
-      return res.status(404).json({ error: "Mensaje no encontrado" });
-    }
-
-    res.status(200).json(message);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
 // Finalizar una sesión de chat
 exports.endSession = async (req, res) => {
   try {
@@ -121,6 +88,44 @@ exports.getMessages = async (req, res) => {
     const messages = await Message.find({ sessionId }).sort("createdAt");
 
     res.status(200).json(messages);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Obtener mensajes sin respuesta para un experto específico
+exports.getUnansweredMessagesForExpert = async (req, res) => {
+  try {
+    const expertId = req.userId; // Asumiendo que el ID del experto está en el token
+
+    // Encuentra los mensajes donde el expertId coincide y no han sido respondidos
+    const unansweredMessages = await Message.find({
+      expertId,
+      responded: false,
+    }).sort("createdAt");
+
+    res.status(200).json(unansweredMessages);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.markMessageAsRead = async (req, res) => {
+  try {
+    const { messageId } = req.params;
+
+    // Actualizar el mensaje a leído
+    const message = await Message.findByIdAndUpdate(
+      messageId,
+      { responded: true },
+      { new: true }
+    );
+
+    if (!message) {
+      return res.status(404).json({ error: "Mensaje no encontrado" });
+    }
+
+    res.status(200).json({ message: "Mensaje marcado como leído." });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -173,12 +178,13 @@ exports.getActiveUnreadSessionsForExpert = async (req, res) => {
     const unreadMessages = await Message.find({
       sessionId: { $in: sessions.map((session) => session._id) },
       responded: false,
+      sender: { $ne: expertId },
     });
 
     const user = await _User.findById(updatedAppointment.UserID);
     if (!user) {
       return res.status(404).send({
-        message: `User with id=${updatedAppointment.UserID} was not found!`,
+        message: `User with id was not found!`,
       });
     }
 
@@ -187,7 +193,7 @@ exports.getActiveUnreadSessionsForExpert = async (req, res) => {
     });
     if (!workshop) {
       return res.status(404).send({
-        message: `Workshop with name=${updatedAppointment.Workshop} was not found!`,
+        message: `Workshop with name was not found!`,
       });
     }
 
@@ -195,11 +201,6 @@ exports.getActiveUnreadSessionsForExpert = async (req, res) => {
     const workshopEmail = workshop.email;
 
     const _workshop = workshop.WorkshopName;
-    const _schedule = updatedAppointment.Schedule;
-    const _service = updatedAppointment.Service;
-    const _status = req.body.Status;
-    const _location = updatedAppointment.Location;
-    const _employee = updatedAppointment.Employee;
 
     let _name = user.firstName + " " + user.lastName;
 
@@ -210,26 +211,32 @@ exports.getActiveUnreadSessionsForExpert = async (req, res) => {
 
     statusChanges = statusChanges.replace("{{workshop}}", _workshop);
     statusChanges = statusChanges.replace("{{schedule}}", _user);
-    statusChanges = statusChanges.replace("{{service}}", _service);
-    statusChanges = statusChanges.replace("{{status}}", _status);
-    statusChanges = statusChanges.replace("{{location}}", _location);
-    statusChanges = statusChanges.replace("{{employee}}", _employee);
 
-    await mailer.send.sendMail({
-      from: '"Garage365" <danielchalasrd@gmail.com>',
-      to: userEmail,
-      subject: "Mensaje sin leer - {{Workshop}}",
-      text: "",
-      html: statusChanges,
-    });
+    if (unreadMessages.length > 0) {
+      const uniqueUserIds = [
+        ...new Set(unreadMessages.map((msg) => msg.userId)),
+      ];
+      for (const userId of uniqueUserIds) {
+        const user = await User.findById(userId);
+        if (user && user.email) {
+          await mailer.send.sendMail({
+            from: '"Garage365" <danielchalasrd@gmail.com>',
+            to: workshopEmail,
+            subject: "Tienes mensajes sin leer - {{Workshop}}",
+            text: "Tienes mensajes no leídos en tu sesión de chat. Por favor, revisa tu sesión para leerlos.",
+            html: statusChanges,
+          });
 
-    await mailer.send.sendMail({
-      from: '"Garage365" <danielchalasrd@gmail.com>',
-      to: workshopEmail,
-      subject: "Mensaje sin leer - {{User}}",
-      text: "",
-      html: statusChanges,
-    });
+          /*await mailer.send.sendMail({
+            from: '"Garage365" <danielchalasrd@gmail.com>',
+            to: workshopEmail,
+            subject: "Mensaje sin leer - {{User}}",
+            text: "",
+            html: statusChanges,
+          });*/
+        }
+      }
+    }
 
     // Si no hay mensajes sin leer, devolver una respuesta.
     if (!unreadMessages.length) {
