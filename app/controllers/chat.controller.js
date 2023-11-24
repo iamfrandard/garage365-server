@@ -78,7 +78,7 @@ exports.getUnansweredMessagesForExpert = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+//
 exports.markAsAnswered = async (req, res) => {
   try {
     const { messageId } = req.params;
@@ -162,7 +162,9 @@ exports.checkAndNotifyUnreadMessages = async () => {
         sessionId: session._id,
         isRead: false,
       });
-
+      console.log(
+        `Verificando mensajes no leídos para la sesión: ${sessionId}`
+      );
       if (unreadMessages.length > 0) {
         const userEmail = session.userId.email; // Asumiendo que tienes el email en el modelo de usuario
         const expertEmail = session.expertId.email; // Asumiendo que tienes el email en el modelo de experto
@@ -171,7 +173,7 @@ exports.checkAndNotifyUnreadMessages = async () => {
         const recipientEmail = session.userId.equals(unreadMessages[0].userId)
           ? expertEmail
           : userEmail;
-
+        console.log(`Enviando correo a: ${recipientEmail}`);
         // Envía el correo electrónico
         await mailer.sendMail({
           from: '"Garage365" <danielchalasrd@gmail.com>',
@@ -179,6 +181,8 @@ exports.checkAndNotifyUnreadMessages = async () => {
           subject: "Tienes mensajes no leídos en tu sesión de chat - Garage365",
           text: "Por favor, revisa tu sesión de chat para leer los mensajes.",
         });
+      } else {
+        console.log("No hay mensajes no leídos.");
       }
     }
   } catch (error) {
