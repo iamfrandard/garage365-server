@@ -2,8 +2,6 @@ const Session = require("../models/sesion.model");
 const Message = require("../models/message.model");
 const db = require("../models");
 const User = require("../models/user.model");
-const _Workshop = db.workshop;
-const _User = db.user;
 const mailer = require("../config/mailer");
 const fs = require("fs");
 
