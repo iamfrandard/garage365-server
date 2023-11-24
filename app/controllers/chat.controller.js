@@ -211,7 +211,7 @@ exports.getActiveUnreadSessionsForExpert = async (req, res) => {
     );
 
     statusChanges = statusChanges.replace("{{workshop}}", _workshop);
-    statusChanges = statusChanges.replace("{{schedule}}", _user);
+    //statusChanges = statusChanges.replace("{{schedule}}", _user);
 
     if (unreadMessages.length > 0) {
       const uniqueUserIds = [
