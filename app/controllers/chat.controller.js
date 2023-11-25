@@ -1,7 +1,5 @@
 const Session = require("../models/sesion.model");
 const Message = require("../models/message.model");
-const mailer = require("../config/mailer");
-const fs = require("fs");
 
 exports.startSession = async (req, res) => {
   try {
@@ -54,7 +52,6 @@ exports.sendMessage = async (req, res) => {
     await message.save();
 
     // Aquí se emitiría el mensaje a través de Socket.io, implementa esta parte según tu configuración
-    await notifyIfUnreadMessages(sessionId, message);
 
     res.status(201).json(message);
   } catch (error) {
@@ -78,7 +75,7 @@ exports.getUnansweredMessagesForExpert = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-//
+
 exports.markAsAnswered = async (req, res) => {
   try {
     const { messageId } = req.params;
@@ -150,90 +147,6 @@ exports.deleteSession = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-exports.checkAndNotifyUnreadMessages = async () => {
-  try {
-    const sessions = await Session.find({ endedAt: null })
-      .populate("userId")
-      .populate("expertId");
-
-    for (const session of sessions) {
-      const unreadMessages = await Message.find({
-        sessionId: session._id,
-        isRead: false,
-      });
-      console.log(
-        `Verificando mensajes no leídos para la sesión: ${sessionId}`
-      );
-      if (unreadMessages.length > 0) {
-        const userEmail = session.userId.email; // Asumiendo que tienes el email en el modelo de usuario
-        const expertEmail = session.expertId.email; // Asumiendo que tienes el email en el modelo de experto
-
-        // Aquí determinas a quién enviar el correo electrónico
-        const recipientEmail = session.userId.equals(unreadMessages[0].userId)
-          ? expertEmail
-          : userEmail;
-        console.log(`Enviando correo a: ${recipientEmail}`);
-        // Envía el correo electrónico
-        await mailer.sendMail({
-          from: '"Garage365" <danielchalasrd@gmail.com>',
-          to: recipientEmail,
-          subject: "Tienes mensajes no leídos en tu sesión de chat - Garage365",
-          text: "Por favor, revisa tu sesión de chat para leer los mensajes.",
-        });
-      } else {
-        console.log("No hay mensajes no leídos.");
-      }
-    }
-  } catch (error) {
-    console.error("Error al verificar y notificar mensajes no leídos", error);
-  }
-};
-
-/*const user = await _User.findById(UserID);
-if (!user) {
-  return res.status(404).send({
-    message: `User with id was not found!`,
-  });
-}
-
-const workshop = await _Workshop.findOne({
-  WorkshopName: updatedAppointment.Workshop,
-});
-if (!workshop) {
-  return res.status(404).send({
-    message: `Workshop with name was not found!`,
-  });
-}
-
-const userEmail = user.email;
-const workshopEmail = workshop.email;
-
-const _workshop = workshop.WorkshopName;
-
-let _name = user.firstName + " " + user.lastName;
-
-if (req.body.Confirm == true) {
-  let statusChanges2 = fs.readFileSync(
-    "./app/mails/appointmentConfirm.html",
-    "utf8"
-  );
-
-  await mailer.send.sendMail({
-    from: '"Garage365" <danielchalasrd@gmail.com>',
-    to: userEmail,
-    subject: "Confirmación de reserva - Garage365",
-    text: "",
-    html: statusChanges2,
-  });
-
-  await mailer.send.sendMail({
-    from: '"Garage365" <danielchalasrd@gmail.com>',
-    to: workshopEmail,
-    subject: "Confirmación de reserva - Garage365",
-    text: "",
-    html: statusChanges2,
-  });*/
 
 exports.getActiveUnreadSessionsForExpert = async (req, res) => {
   try {
