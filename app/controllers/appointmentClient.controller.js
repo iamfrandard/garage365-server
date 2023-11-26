@@ -478,7 +478,7 @@ exports.updateL = async (req, res) => {
         });
       }
     }
-  } /*else {
+  } else {
     try {
       const updatedAppointment = await Appointment.findByIdAndUpdate(
         id,
@@ -500,7 +500,7 @@ exports.updateL = async (req, res) => {
         message: `Error updating Appointment with id=${id}`,
       });
     }
-  }*/
+  }
 };
 
 exports.delete = (req, res) => {
