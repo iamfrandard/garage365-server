@@ -337,10 +337,10 @@ exports.update = async (req, res) => {
 
       var options = {
         method: "POST",
-        url: "https://api.ultramsg.com/instance68993/messages/chat",
+        url: "https://api.ultramsg.com/instance69803/messages/chat",
         headers: { "content-type": "application/x-www-form-urlencoded" },
         form: {
-          token: "9dn1546bqgysjy72",
+          token: "31ggtp6lelrtib94",
           to: user.phoneNumber,
           body: `¡Hola ${_name}! 🚗 En *Garage365* estamos contentos de informarte que tu vehículo ya está listo.
 
@@ -375,10 +375,10 @@ Agradecemos tu confianza en nosotros y esperamos haber satisfecho tus necesidade
 
     var options = {
       method: "POST",
-      url: "https://api.ultramsg.com/instance68993/messages/chat",
+      url: "https://api.ultramsg.com/instance69803/messages/chat",
       headers: { "content-type": "application/x-www-form-urlencoded" },
       form: {
-        token: "9dn1546bqgysjy72",
+        token: "31ggtp6lelrtib94",
         to: user.phoneNumber,
         body: `¡Hola ${_name}! 🚗 Gracias por usar *Garage365*. Aquí te paso los detalles de tu próxima cita:
     
