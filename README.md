@@ -16,7 +16,6 @@ El backend de "GARAGE365" utiliza el stack MEAN, que incluye:
 
 - MongoDB: Base de datos NoSQL para almacenar todos los datos de la aplicación.
 - Express.js: Framework de servidor para Node.js que facilita la creación de APIs.
-- Angular: Utilizado para el desarrollo del frontend (aunque este archivo README se centra en el backend).
 - Node.js: Entorno de ejecución para JavaScript en el servidor.
 
 ## Uso
