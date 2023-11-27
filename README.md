@@ -41,4 +41,4 @@ Implementamos prácticas de seguridad avanzadas para proteger la información se
 
 ## Licencia
 
-Este proyecto está bajo la Licencia de la PUCMM.
+Este proyecto está bajo la Licencia de la Pontificia Universidad Católica Madre y Maestra (2023).
