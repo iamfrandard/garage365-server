@@ -117,7 +117,7 @@ const Role = db.role;
 
 db.mongoose
   .connect(
-    `mongodb+srv://owner:1230@garage365db.u8qultk.mongodb.net/?retryWrites=true&w=majority`,
+    `${dbConfig.URL}`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
